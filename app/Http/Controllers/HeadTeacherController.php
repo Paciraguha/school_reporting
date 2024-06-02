@@ -38,12 +38,16 @@ class HeadTeacherController extends Controller
         $data=$request->all();
         $data1=$data['HeadTeacher'];
       
-
         $data=User::leftJoin('head_teachers', 'users.id','=','head_teachers.UserId') 
         ->leftJoin('schools','head_teachers.SchoolId' , '=','schools.id' )
-        ->where('users.position','=',$data1)
         ->get(['users.id','users.created_at','users.firstName','users.lastName','users.email','users.Telephone','schools.SchoolCode','schools.SchoolName']);
         return response()->json($data);
+
+        // $data=User::leftJoin('head_teachers', 'users.id','=','head_teachers.UserId') 
+        // ->leftJoin('schools','head_teachers.SchoolId' , '=','schools.id' )
+        // ->where('users.position','=',$data1)
+        // ->get(['users.id','users.created_at','users.firstName','users.lastName','users.email','users.Telephone','schools.SchoolCode','schools.SchoolName']);
+        // return response()->json($data);
     }
     
     public function listAllTeacher(){

@@ -19,7 +19,6 @@
     }
 </style>
 <div class="container"  style="padding-left:20px;padding-right:20px;margin-right:50px;margin:auto">
-
 <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
         <!-- Modal content -->
@@ -66,45 +65,49 @@
 </div> 
 
 
+<div class="w-full flex flex-col justify-center items-center mt-[50px]">
+<div class="w-full flex justify-between">
+<div class=" w-full md:w-1/3 flex flex-wrap justify-evenly">
+    <button type="button" id="HeadTeacher"
+        class=" showData w-[120px] text-white bg-gray-800 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Head Teachers
+    </button>
+    <button type="button" id="DOS"
+        class="showData w-[80px] text-white  bg-gray-800 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        DOS
+    </button>
+    <button type="button" id="Teacher" 
+        class="showData w-[80px] text-white  bg-gray-800 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Teachers
+    </button>
+</div>
+<a href="{{route('newStaff')}}" type="button" id="Teacher" 
+    class="showData w-[150px] text-white  bg-gray-800 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+    Add new Staff
+</a>
 
+</div>
 
-
-
-                        <div class="w-full flex flex-col justify-center items-center mt-[50px]">
-                         <div class=" w-full md:w-1/4 flex flex-wrap justify-evenly">
-                            <button type="button" id="HeadTeacher"
-                                class=" showData w-[120px] text-white bg-gray-800 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                Head Teachers
-                            </button>
-                            <button type="button" id="DOS"
-                                class="showData w-[80px] text-white  bg-gray-800 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                DOS
-                            </button>
-                            <button type="button" id="Teacher" 
-                                class="showData w-[80px] text-white  bg-gray-800 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                Teachers
-                            </button>
-                            </div>
-                            <h3 class="py-2 border-b-2 border-red-900 my-4 w-full" id="table-title">
-                                  {{ __("Schools in districts") }}
-                            </h3>
-                            <table class="min-w-full text-left text-sm font-light text-surface dark:text-white" >
-                            <thead class="border-b border-neutral-200 font-medium dark:border-white/10">
-                                <tr>
-                                    <td rowspan="2" class="px-6 py-4">No</td>
-                                    <td rowspan="2" class="px-6 py-4">Date of Registration</td>
-                                    <td class="px-6 py-4"> Name</td>
-                                    <td class="px-6 py-4">email</td>
-                                    <td class="px-6 py-4">telephone</td>
-                                    <td class="px-6 py-4">School Code</td>
-                                    <td class="px-6 py-4">School Name</td>
-                                    <td colspan="3" class="px-6 py-4 text-center">Actions</td>
-                                </tr>
-                            </thead>
-                            <tbody id="teacher-section-table">
-                            </tbody>
-                            </table>
-                        </div>
+<h3 class="py-2 border-b-2 border-red-900 my-4 w-full" id="table-title">
+    {{ __("Schools in districts") }}
+</h3>
+<table class="min-w-full text-left text-sm font-light text-surface dark:text-white" >
+<thead class="border-b border-neutral-200 font-medium dark:border-white/10">
+    <tr>
+        <td rowspan="2" class="px-6 py-4">No</td>
+        <td rowspan="2" class="px-6 py-4">Date of Registration</td>
+        <td class="px-6 py-4"> Name</td>
+        <td class="px-6 py-4">email</td>
+        <td class="px-6 py-4">telephone</td>
+        <td class="px-6 py-4">School Code</td>
+        <td class="px-6 py-4">School Name</td>
+        <td colspan="3" class="px-6 py-4 text-center">Actions</td>
+    </tr>
+</thead>
+<tbody id="teacher-section-table">
+</tbody>
+</table>
+</div>
                   
 <script>
  $(document).ready(function() {
@@ -277,7 +280,7 @@ function getAllHeadTeacher(id){
                console.log(formData)
                     $.ajax({
                         type: 'POST',
-                        url: '{!! route('apiAddSchoolLeader') !!}',
+                        url: '{!! route('apischoolStaffList') !!}',
                         data: formData,
                         dataType: 'json',
                         success: function(response) {

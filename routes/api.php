@@ -38,7 +38,7 @@ Route::post('/login',[LoginController::class, 'userLogin'])->name("loginStaff");
 //  Route::get('/allSchoolClasses', [SchoolController::class, 'getAllSchoolClasses'])->name("apiGetSchoolClass");
 
 //  Route::get('/schools/{id}', [SchoolController::class, 'show'])->name('getAllSchoolsOfSector');
-//  Route::post('/schoolLeader', [HeadTeacherController::class, 'create'])->name("apiAddSchoolLeader");
+//  Route::post('/schoolLeader', [HeadTeacherController::class, 'create'])->name("apischoolStaffList");
 //  Route::get('/Teachers', [HeadTeacherController::class, 'listAllTeacher'])->name("apiGetAllSchoolTeachers");
 //  Route::get('/HeadTeachers', [HeadTeacherController::class, 'listAllHeadTeacher'])->name("apiGetAllSchoolHeadTeachers");
 //  Route::post('/Teachers', [HeadTeacherController::class, 'assignClassToTeacher'])->name("apiAssignClassToTeacher");
@@ -54,7 +54,7 @@ Route::post('/login',[LoginController::class, 'userLogin'])->name("loginStaff");
 // })
 
 
-Route::group(["middleware"=>["auth:sanctum"]],function(){
+//Route::group(["middleware"=>["auth:sanctum"]],function(){
     
     // Routes related to reports
     Route::post('/reports', [ReportController::class, 'create'])->name("addStudentsReport");
@@ -78,7 +78,7 @@ Route::group(["middleware"=>["auth:sanctum"]],function(){
     Route::get('/schoolClasses/{id}', [SchoolController::class, 'getAllClassInSchool'])->name("apiGetAllClassInSchool");
 
     // Routes related to school leaders (head teachers)
-    Route::post('/schoolLeader', [HeadTeacherController::class, 'create'])->name("apiAddSchoolLeader");
+    Route::post('/schoolLeader', [HeadTeacherController::class, 'create'])->name("apischoolStaffList");
     Route::get('/Teachers', [HeadTeacherController::class, 'listAllTeacher'])->name("apiGetAllSchoolTeachers");
     Route::get('/HeadTeachers', [HeadTeacherController::class, 'listAllHeadTeacher'])->name("apiGetAllSchoolHeadTeachers");
     Route::post('/Teachers', [HeadTeacherController::class, 'assignClassToTeacher'])->name("apiAssignClassToTeacher");
@@ -93,4 +93,4 @@ Route::group(["middleware"=>["auth:sanctum"]],function(){
     Route::post('/studentAttendance', [StudentController::class, 'studentsAttendance'])->name('studentsAttendance');
     Route::get('/studentAttendance', [StudentController::class, 'getStudentsAttendance'])->name('getStudentsAttendance');
 
-});
+//});

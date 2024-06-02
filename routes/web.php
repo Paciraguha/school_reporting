@@ -43,9 +43,9 @@ Route::get('/addSectors', function () {
 })->name('addSector');
 
 
-Route::get('/addSchoolLeader', function () {
-    return view('Deo.addSchoolStaff');
-})->name('addSchoolLeader');
+Route::get('/schoolStaffList', function () {
+    return view('Deo.viewSchoolStaff');
+})->name('schoolStaffList');
 
 
 Route::get('/assignClassLevels', function () {

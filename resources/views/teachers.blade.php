@@ -111,6 +111,7 @@ testButton();
     .then(response => response.json())
     .then(result => {
     console.log('Success:', result);
+    window.location.reload()
     })
 }
 

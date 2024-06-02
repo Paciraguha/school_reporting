@@ -242,7 +242,7 @@ function getAllHeadTeacher(){
                console.log(formData)
                     $.ajax({
                         type: 'POST',
-                        url: '{!! route('apiAddSchoolLeader') !!}',
+                        url: '{!! route('apischoolStaffList') !!}',
                         data: formData,
                         dataType: 'json',
                         success: function(response) {

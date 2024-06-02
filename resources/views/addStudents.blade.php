@@ -80,9 +80,9 @@
         </div>
 
 
-                 <div class="w-full flex flex-col justify-center items-center mt-[50px]">
+                 <div class="w-full flex flex-col mt-[50px">
                  <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" 
-                        class="w-[10px] float-end text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
+                        class="w-[150px] float-right text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
                         type="button">
                             Add new student
                     </button>
@@ -267,7 +267,7 @@ function getAllSchool(){
                         dataType: 'json',
                         success: function(response) {
                             console.log(response)
-                          //  window.location.reload()
+                            window.location.reload()
                         },
         
                     });
