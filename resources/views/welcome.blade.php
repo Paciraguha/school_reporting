@@ -120,7 +120,7 @@
                 localStorage.setItem('auth_token', data.token);
                 const user=data.user
                 console.log(data.token)
-                if(user.position==="teacher"){
+                if(user.position==="Teacher"){
                     window.location.href="{!! route('studentAttendance') !!}"
                 }else if(user.position==="HeadTeacher"){
                     window.location.href="{!! route('headTeacherHome') !!}"

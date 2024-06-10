@@ -45,19 +45,19 @@
             </div> 
     </div>
  
-    <div class="w-full flex flex-col justify-center items-center mt-[50px] overflow-x-auto shadow-md rounded-lg border-l-2 border-slate-400 px-20" >
+    <div class="w-full flex flex-col justify-center items-center mt-[50px] shadow-md rounded-lg border-l-2 border-slate-400 px-20" >
        
         <h3 class="py-2 border-b-2 border-red-900 my-4 w-full  font-extralight text-[20px]" id="table-title">
          {{ __("Student attendance Detail") }}
         </h3>
 
        
-                        <table class="table" id="student-section-table">
+                        <table class="w-full  rounded-sm border-collapse border border-slate-400 mx-11 mb-10"  id="student-section-table">
                             <tr>
-                                <td rowspan="2">No</td>
-                                <td> Date</td>
-                                <td> Attendance</td>
-                                <td> Teacher Comment</td>
+                                <td rowspan="2" class="px-6 py-2">No</td>
+                                <td class="px-6 py-2"> Date</td>
+                                <td class="px-6 py-2"> Attendance</td>
+                                <td class="px-6 py-2"> Teacher Comment</td>
                             </tr>
                         </table>
             </div>
@@ -106,14 +106,27 @@ function getAllStudent(){
             data.forEach((response)=>{
            
            i++
-            const table1=`
-            <tr>
-                <td id="report-expected-men-nusery">${i}</td>
-                <td id="report-expected-women-nusery">${response.attendedDay}</td>
-                <td id="report-expected-women-nusery">${response.Status}</td>
-                <td id="report-expected-women-nusery">${response.teacherComments}</td>
+            let table1=''
+           if(response.Status ==='Absent'){
+            table1=`
+            <tr class="bg-red-50">
+                <td class="px-4 py-2" id="report-expected-men-nusery">${i}</td>
+                <td class="px-4 py-2" >${response.attendedDay}</td>
+                <td class="px-4 py-2">${response.Status}</td>
+                <td class="px-4 py-2">${response.teacherComments}</td>
             </tr>
             `
+           }else{
+            table1=`
+            <tr>
+                <td class="px-4 py-2">${i}</td>
+                <td class="px-4 py-2">${response.attendedDay}</td>
+                <td class="px-4 py-2">${response.Status}</td>
+                <td class="px-4 py-2">${response.teacherComments}</td>
+            </tr>
+            `
+           }
+         
 
             studentList.insertAdjacentHTML("beforeend",table1);
           

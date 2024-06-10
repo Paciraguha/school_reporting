@@ -112,7 +112,7 @@ function getAllStudent(){
                 <td class="px-6 py-2 border border-slate-300">${response.totalPresent}</td>
                 <td class="px-6 py-2 border border-slate-300">${response.totalAbsent}</td>
                 <td class="px-6 py-2 border border-slate-300">${attendanceResult}%</td>
-                <td class="px-6 py-2 border border-slate-300"><href="${studentAttendanceDetailUrl}" class="btn btn-primary btn-small" id="present${response.id}">Detail</a></td>
+                <td class="px-6 py-2 border border-slate-300"><a href="${studentAttendanceDetailUrl}" class="btn btn-primary btn-small" id="present${response.id}">Detail</a></td>
             </tr>
             `
            

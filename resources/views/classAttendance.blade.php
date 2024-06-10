@@ -234,7 +234,7 @@ function attendedStudent(id){
 
     const formData={
         StudentCode:id,
-        comment:'',
+        comment:'present',
         Status:'Present',
         attendedDay:todayDate()
     }
