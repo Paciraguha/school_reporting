@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("StudentCode");
             $table->string("Status")->enum(['Present','Absent']);
             $table->string('attendedDay');
+            $table->string('teacherComments')->nullable();
             $table->timestamps();
         });
     }

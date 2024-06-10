@@ -132,6 +132,7 @@
 </div>
 
 <script>
+   const token = localStorage.getItem('auth_token');
  $(document).ready(function() {
     getAllClass()
     getClassLevelsOfSchool()
@@ -139,12 +140,16 @@
         addNewClassToSchool()
     })
 
-
+  
     function getClassLevelsOfSchool(){
     const school_levels=document.getElementById("class-section")
     $.ajax({
         type: 'GET',
         url: '{!! route('getClassLevelsOfSchool') !!}',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            "Content-Type":"application/json"
+             },
         dataType: 'json',
         success: function(response) {
             const data=response;
@@ -173,6 +178,10 @@ function getAllClass(){
     $.ajax({
         type: 'GET',
         url: '{!! route('apiGetSchoolClass') !!}',
+        headers: {
+            'Authorization': 'Bearer ' + token
+           
+             },
         dataType: 'json',
         success: function(response) {
 
@@ -231,6 +240,10 @@ function addNewClassToSchool(){
             $.ajax({
                 type: 'POST',
                 url: '{!! route('apiAddSchoolClass') !!}',
+                headers: {
+                'Authorization': 'Bearer ' + token
+               
+                },
                 data: formData,
                 dataType: 'json',
                 success: function(response) {

@@ -94,7 +94,6 @@
                        
                             <tr>
                                 <td rowspan="2" class="px-6 py-4">No</td>
-                                <td rowspan="2" class="px-6 py-4">Date of Registration</td>
                                 <td class="px-6 py-4"> School Code</td>
                                 <td class="px-6 py-4"> Student Code</td>
                                 <td class="px-6 py-4"> Class Level</td>
@@ -118,6 +117,7 @@
 </div>
 
 <script>
+ const token = localStorage.getItem('auth_token');
  $(document).ready(function() {
     getSectorInfo()
     getAllStudent()
@@ -139,6 +139,10 @@ function getSectorInfo(){
     $.ajax({
         type: 'GET',
         url: '{!! route('getAllSectors') !!}',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            "Content-Type":"application/json"
+             },
         dataType: 'json',
         success: function(response) {
             const data=response;
@@ -180,6 +184,10 @@ function getAllSchool(){
     $.ajax({
         type: 'GET',
         url:url,
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            "Content-Type":"application/json"
+             },
         dataType: 'json',
         success: function(response) {
             const data=response;
@@ -220,6 +228,10 @@ function getAllSchool(){
         $.ajax({
             type: 'GET',
             url:url,
+            headers: {
+            'Authorization': 'Bearer ' + token,
+            "Content-Type":"application/json"
+             },
             dataType: 'json',
             success: function(response) {
                 const data=response;
@@ -263,6 +275,10 @@ function getAllSchool(){
                     $.ajax({
                         type: 'POST',
                         url: '{!! route('apiAddStudents') !!}',
+                        headers: {
+                        'Authorization': 'Bearer ' + token
+                        
+                        },
                         data: formData,
                         dataType: 'json',
                         success: function(response) {
@@ -280,6 +296,10 @@ function getAllStudent(){
     $.ajax({
         type: 'GET',
         url: '{!! route('getAllStudent') !!}',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            "Content-Type":"application/json"
+             },
         dataType: 'json',
         success: function(response) {
 
@@ -291,7 +311,6 @@ function getAllStudent(){
             const table1=`
             <tr>
                 <td class="whitespace-nowrap px-6 py-4">${i}</td>
-                <td class="whitespace-nowrap px-6 py-4">${response.created_at}</td>
                 <td class="whitespace-nowrap px-6 py-4">${response.SchoolCode}</td>
                 <td class="whitespace-nowrap px-6 py-4">${response.StudentCode}</td>
                 <td class="whitespace-nowrap px-6 py-4">${response.SchoolClass}</td>

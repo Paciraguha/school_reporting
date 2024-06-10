@@ -19,53 +19,61 @@
     }
 </style>
 <div class="container"  style="padding-left:20px;padding-right:20px;margin-right:50px;margin:auto">
-<div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-md max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+
+<div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center">
+          
+    <div class="bg-white rounded-lg shadow-lg w-1/3">
+        <div class="p-4 border-b">
+             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3  id="modal-title" class="text-xl font-semibold text-gray-900 dark:text-white">
                   Assign school to Head Teacher
                 </h3>
-                <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+                <button type="button"  onclick="closeModal()" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <!-- Modal body -->
+        </div>
+        <div class="p-4">
+            <p id="modal-content">
+            </p>
             <div class="p-4 md:p-5">
+            <form class="space-y-4" action="#" id="assignSchoolForm">
+                <div id="userId-sesction"></div>
+                <div>
+                    <label for="sector-options" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sector</label>
+                    <select type="text" name="sector"  id="sector-options"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" 
+                        >
+                    <option>Select Sector</option>
+                </select>
+                </div>
+                <div>
+                    <label for="school-options" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">School</label>
+                    <select type="text" name="school"  id="school-options"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" 
+                        >
+                    <option>Select School</option>
+                </select>
+                </div>
                 
-                <form class="space-y-4" action="#" id="assignSchoolForm">
-                     <div id="userId-sesction"></div>
-                   <div>
-                        <label for="sector-options" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sector</label>
-                        <select type="text" name="sector"  id="sector-options"
-                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" 
-                            >
-                         <option>Select Sector</option>
-                    </select>
-                    </div>
-                    <div>
-                        <label for="school-options" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">School</label>
-                        <select type="text" name="sector"  id="school-options"
-                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" 
-                            >
-                         <option>Select School</option>
-                    </select>
-                    </div>
-                    <button type="button" id="addHeadTeacher-button"
-                     class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add School</button>
-                </form>
+            </form>
+            </div>
+        </div class="w-full flex" >
+            <div class="p-4 border-t text-left">
+            <button type="button" id="addHeadTeacher-button"
+                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add School</button>
             </div>
         </div>
+        <div>
+       
     </div>
-</div> 
+</div>
 
 
-<div class="w-full flex flex-col justify-center items-center mt-[50px]">
+<div class="w-full flex flex-col justify-center items-center mt-[50px] overflow-x-auto" >
 <div class="w-full flex justify-between">
 <div class=" w-full md:w-1/3 flex flex-wrap justify-evenly">
     <button type="button" id="HeadTeacher"
@@ -91,7 +99,7 @@
 <h3 class="py-2 border-b-2 border-red-900 my-4 w-full" id="table-title">
     {{ __("Schools in districts") }}
 </h3>
-<table class="min-w-full text-left text-sm font-light text-surface dark:text-white" >
+<table class="min-w-full text-left text-sm font-light text-surface dark:text-white over" >
 <thead class="border-b border-neutral-200 font-medium dark:border-white/10">
     <tr>
         <td rowspan="2" class="px-6 py-4">No</td>
@@ -110,6 +118,7 @@
 </div>
                   
 <script>
+const token = localStorage.getItem('auth_token');
  $(document).ready(function() {
        getSectorInfo()
        var filterData={"HeadTeacher":"HeadTeacher"}
@@ -146,6 +155,9 @@ function getSectorInfo(){
     $.ajax({
         type: 'GET',
         url: '{!! route('getAllSectors') !!}',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+             },
         dataType: 'json',
         success: function(response) {
             const data=response;
@@ -180,7 +192,6 @@ function getAllSchool(){
     while (myNode.firstChild) {
         myNode.removeChild(myNode.lastChild);
     }
-
            const options=`
                 <Option>select school in this sector</Option>
                 `
@@ -190,6 +201,10 @@ function getAllSchool(){
     $.ajax({
         type: 'GET',
         url:url,
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            "Content-Type":"application/json"
+             },
         dataType: 'json',
         success: function(response) {
             const data=response;
@@ -217,6 +232,10 @@ function getAllHeadTeacher(id){
     $.ajax({
         type: 'GET',
         url: '{!! route('apiGetAllSchoolHeadTeachers') !!}',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            "Content-Type":"application/json"
+             },
         data:filterData,
         dataType: 'json',
         success: function(response) {
@@ -235,7 +254,7 @@ function getAllHeadTeacher(id){
                 <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.SchoolCode}</td>
                 <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.SchoolName}</td>
                 <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">
-                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" onclick="assignClaasToTeacher(${elem.id})" id="save_${elem.id}"
+                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" onclick="openModal(${elem.id})"  id="save_${elem.id}"
                 class="block bg-gray-800 float-end text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
                 type="button">
                  Assign School
@@ -262,11 +281,6 @@ function getAllHeadTeacher(id){
     
         let schoolId=document.getElementById("school-options").value
         let userId=document.getElementById("userId").value
-        // let position=document.getElementById("position-options").value
-        // let SectorCode=document.getElementById("sector-options").value
-        // let LastName=document.getElementById("lastName").value
-        // let email=document.getElementById("email").value
-        // let telephone=document.getElementById("telephone").value
 
         const data={
         schoolId,
@@ -281,31 +295,45 @@ function getAllHeadTeacher(id){
                     $.ajax({
                         type: 'POST',
                         url: '{!! route('apischoolStaffList') !!}',
+                        headers: {
+                        'Authorization': 'Bearer ' + token
+                        },
                         data: formData,
                         dataType: 'json',
                         success: function(response) {
-                            //console.log(response)
-                          window.location.reload()
+                            console.log(response)
+                         window.location.reload()
                         },
                         error: function(xhr, status, error) {
                             // Handle errors if needed
-                            console.error(error);
+                            console.log(error);
                         }
                     });
                     //window.location.reload()
                 }
         })
 
-function assignClaasToTeacher(id){
+
+
+function openModal(user) {
+   
     var form_container = document.getElementById("userId-sesction");
     var input = document.createElement("input");
         input.type = "text";
         input.name = "userId";
-        input.value=`${id}`;
+        input.value=`${user}`;
         input.id="userId";
-        input.hidden="hidden";
+        input.hidden="";
         form_container.appendChild(input);
-       
+
+    document.getElementById('modal-title').innerText = 'Assign School to ' + user;
+    document.getElementById('modal-content').innerText = 'Editing details for ' + user;
+    document.getElementById('modal').classList.remove('hidden');
+}
+
+function closeModal() {
+    document.getElementById("userId").remove();
+    document.getElementById('modal').classList.add('hidden');
 }
 </script>
 @endsection

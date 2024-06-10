@@ -54,7 +54,7 @@ Route::post('/login',[LoginController::class, 'userLogin'])->name("loginStaff");
 // })
 
 
-//Route::group(["middleware"=>["auth:sanctum"]],function(){
+ Route::group(["middleware"=>["auth:sanctum"]],function(){
     
     // Routes related to reports
     Route::post('/reports', [ReportController::class, 'create'])->name("addStudentsReport");
@@ -88,9 +88,14 @@ Route::post('/login',[LoginController::class, 'userLogin'])->name("loginStaff");
     Route::get('/sectors', [SectorControllers::class, 'index'])->name('getAllSectors');
 
     // Routes related to students
+
     Route::post('/students', [StudentController::class, 'create'])->name('apiAddStudents');
     Route::get('/students', [StudentController::class, 'index'])->name('getAllStudent');
+    Route::get('/studentsByClass', [StudentController::class, 'allStudentsInClass'])->name('getAllInStudent');
+  
     Route::post('/studentAttendance', [StudentController::class, 'studentsAttendance'])->name('studentsAttendance');
     Route::get('/studentAttendance', [StudentController::class, 'getStudentsAttendance'])->name('getStudentsAttendance');
-
-//});
+    Route::get('/studentAttendanceDetail/{id}', [StudentController::class, 'studentsAttendanceDetail'])->name('getStudentAttendanceDetail');
+    Route::get('/studentAttendanceScore', [StudentController::class, 'getAllStudentAttendanceScore'])->name('getStudentsAttendanceScore');
+    
+});

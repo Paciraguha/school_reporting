@@ -310,6 +310,9 @@ function getStudentReportData(){
     $.ajax({
         type: 'GET',
         url: '{!! route('getStudentsReport') !!}',
+        headers: {
+            'Authorization': 'Bearer ' + token
+             },
         dataType: 'json',
         success: function(response) {
             console.log(response)
@@ -517,6 +520,10 @@ function saveData(){
             $.ajax({
                 type: 'POST',
                 url: '{!! route('addStudentsReport') !!}',
+                headers: {
+                'Authorization': 'Bearer ' + token
+              
+                },
                 data: formData,
                 dataType: 'json',
                 success: function(response) {

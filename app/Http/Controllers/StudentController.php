@@ -2,29 +2,102 @@
 
 namespace App\Http\Controllers;
 use App\Models\Student;
+use App\Models\User;
 use App\Models\studentsAttendance;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\DB;
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+          $this->middleware('auth:sanctum');
+         
+        //   $user_id=Auth::user()->id;
+        //   // $user=logeddInUser($user_id);
+        //   //return response()->json($user_id);
+        //   $user=User::Join('head_teachers', 'users.id','=','head_teachers.UserId') 
+        //   ->Join('schools','head_teachers.SchoolId' , '=','schools.id' )
+        //   ->where('users.id','=',$user_id)
+         // ->get(['schools.SchoolCode']);
+         
+     }
+     
+
+ 
+
+
     public function index()
     {
         //
-        $data=Student::join('school_classes','school_classes.id','=','students.ClassLevel')
-        ->where('students.SchoolCode','001')
-        ->get(['students.id','students.SchoolCode','students.FirstName','students.LastName','students.Gender','students.StudentCode','school_classes.SchoolClass']);
-        return response()->json($data);
+        if (Auth::check()) {
+             
+            $this->middleware('auth:sanctum');
+         
+            $user_id=Auth::user()->id;
+            $user=User::Join('head_teachers', 'users.id','=','head_teachers.UserId') 
+            ->Join('schools','head_teachers.SchoolId' , '=','schools.id' )
+            ->where('users.id','=',$user_id)
+            ->get(['schools.SchoolCode']);
+
+
+            $data=Student::join('school_classes','school_classes.id','=','students.ClassLevel')
+            ->where('students.SchoolCode',$user[0]["SchoolCode"])
+            ->get(['students.id','students.SchoolCode','students.FirstName','students.LastName','students.Gender','students.StudentCode','school_classes.SchoolClass']);
+            return response()->json($data);
+
+        } else {
+            return response()->json(['error' => 'Unauthenticated'], 401);
+        }
     }
 
     /**
      * Show the form for creating a new resource.
      * 
      */
-    public function getAllSchoolClasses(){
+    public function getAllStudentAttendanceScore(){
+        if (Auth::check()) {
+             
+            $this->middleware('auth:sanctum');
+       
+            $user_id=Auth::user()->id;
+            $user=User::Join('head_teachers', 'users.id','=','head_teachers.UserId') 
+            ->Join('schools','head_teachers.SchoolId' , '=','schools.id' )
+            ->where('users.id','=',$user_id)
+            ->get(['schools.SchoolCode']);
+
+        
+            $data = Student::join('school_classes', 'school_classes.id', '=', 'students.ClassLevel')
+            ->join('students_attendances', 'students.id', '=', 'students_attendances.StudentCode')
+            ->where('students.SchoolCode', $user[0]["SchoolCode"])
+            ->groupBy('students_attendances.StudentCode','students.id', 'students.FirstName', 'students.LastName', 'students.Gender', 'students.StudentCode', 'school_classes.SchoolClass') // Add grouping by attendedDay
+            ->select( 
+                'students.id',
+                'students.FirstName',  
+                'students.LastName', 
+                'students.Gender',
+                'students.StudentCode',
+                 'school_classes.SchoolClass',
+                // Include student's first name
+                DB::raw('COUNT(students_attendances.StudentCode) as totalRegistered'),
+                DB::raw('SUM(CASE WHEN students_attendances.Status = "Present" THEN 1 ELSE 0 END) as totalPresent'),
+                DB::raw('SUM(CASE WHEN students_attendances.Status = "Absent" THEN 1 ELSE 0 END) as totalAbsent'),
+            )
+            
+            ->get();
+
+            return response()->json($data);
+
+            
+
+        } else {
+            return response()->json(['error' => 'Unauthenticated'], 401);
+        }
         
     }
     public function create(Request $request)
@@ -39,7 +112,6 @@ class StudentController extends Controller
         $result=substr($result,2);
 
         $studentCode="01001".$result;
-       // return response()->json($inputData);
         $data=Student::create([
             "StudentCode"=>$studentCode,
             "SchoolCode"=>$inputData["SchoolCode"],
@@ -51,60 +123,78 @@ class StudentController extends Controller
         return response()->json($data);
     }
 
+
+
     public function studentsAttendance(Request $request){
         $inputData=$request->all();
-       //return response()->json($inputData);
-        $data=studentsAttendance::create([
-            "StudentCode"=>$inputData["Schoolcode"],
+
+       $data = studentsAttendance::where('StudentCode', $inputData["StudentCode"])
+       ->where("attendedDay",$inputData["attendedDay"])
+       ->first();
+
+       if($data){
+           $data->update(["Status"=>$inputData["Status"],
+           "attendedDay"=>$inputData["attendedDay"],
+           "teacherComments"=>$inputData["comment"]
+        ]);
+       }else{
+           $data=studentsAttendance::create([
+            "StudentCode"=>$inputData["StudentCode"],
             "Status"=>$inputData["Status"],
-            "attendedDay"=>$inputData["attendedDay"]
+            "attendedDay"=>$inputData["attendedDay"],
+            "teacherComments"=>$inputData["comment"]
         
         ]);
+       }
         return response()->json($data);
 
     }
-public function getStudentsAttendance(){
+public function getStudentsAttendance(Request $request){
+    $inputData=$request->all();
 
-    $totalStudent=Student::where("SchoolCode",'=','001')->count();
 
-    $totalStudentMale=Student::where("SchoolCode",'=','001')
-                        ->where('Gender','Male')
-                        ->count();
+    $this->middleware('auth:sanctum');
+       
+    $user_id=Auth::user()->id;
+    $user=User::Join('head_teachers', 'users.id','=','head_teachers.UserId') 
+    ->Join('schools','head_teachers.SchoolId' , '=','schools.id' )
+    ->where('users.id','=',$user_id)
+    ->get(['schools.SchoolCode']);
 
-    $totalStudentFemale=Student::where("SchoolCode",'=','001')
-                     ->where('Gender','Female')
-                     ->count();
 
-    $attendedtotal=studentsAttendance::join("students",'students.id','=','students_attendances.StudentCode')
-                                        ->where('students.SchoolCode','=','001')
-                                        ->where('students_attendances.Status','=','Present')
-                                        ->count();
 
-    $attendedFemale=studentsAttendance::join("students",'students.id','=','students_attendances.StudentCode')
-    ->where('students.SchoolCode','=','001')
-    ->where('students.Gender','=','Female')
-    ->where('students_attendances.Status','=','Present')
-    ->count();
-    
-    $attendedMale=studentsAttendance::join("students",'students.id','=','students_attendances.StudentCode')
-    ->where('students.SchoolCode','=','001')
-    ->where('students.Gender','=','Male')
-    ->where('students_attendances.Status','=','Present')
-    ->count();
+    $data = studentsAttendance::leftJoin('students', 'students.id', '=', 'students_attendances.StudentCode')
+    ->select(
+        DB::raw('students_attendances.attendedDay' ), 
+        DB::raw('COUNT(DISTINCT students.id) as totalRegistered'), // Total registered students (distinct)
+        DB::raw('SUM(CASE WHEN students.Gender = "Female" THEN 1 ELSE 0 END) as totalFemale'), // Total female students
+        DB::raw('SUM(CASE WHEN students.Gender = "Male" THEN 1 ELSE 0 END) as totalMale'),// Total male students
+        DB::raw('SUM(CASE WHEN students_attendances.Status = "Present" THEN 1 ELSE 0 END) as totalPresent'), // Total present students
+        DB::raw('SUM(CASE WHEN students.Gender = "Female" AND students_attendances.Status = "Present" THEN 1 ELSE 0 END) as totalPresentFemale'), // Total present female students
+        DB::raw('SUM(CASE WHEN students.Gender = "Male" AND students_attendances.Status = "Present" THEN 1 ELSE 0 END) as totalPresentMale'), // Total present male students
+        
+    )
+    ->where('students.SchoolCode', '=', $user[0]["SchoolCode"])
+    ->where('students_attendances.attendedDay', '>=',  $inputData['fromDate'])
+    ->where('students_attendances.attendedDay', '<=',  $inputData['toDate'])
+    ->groupBy('students_attendances.attendedDay')
+    ->get();
 
-     $total=[
-        "totalRegistered"=>$totalStudent,
-        "totalMale"=>$totalStudentMale,
-        "totalFemale"=>$totalStudentMale,
-        "attendedTotal"=>$attendedtotal,
-        "attendedFemale"=>$attendedFemale,
-        "attendedMale"=>$attendedMale,
-        "attendancePercentage"=>($attendedtotal * 100/$totalStudent)
-     ] ;  
-
-    return response()->json($total);
-    
+    return response()->json($data);
 }
+
+public function allStudentsInClass(){
+
+}
+
+public function studentsAttendanceDetail ($id){
+    $data = Student::join('school_classes', 'school_classes.id', '=', 'students.ClassLevel')
+    ->join('students_attendances', 'students.id', '=', 'students_attendances.StudentCode')
+    ->where('students_attendances.StudentCode', $id)
+    ->get();
+    return response()->json($data);
+}
+
     /**
      * Store a newly created resource in storage.
      */

@@ -117,7 +117,9 @@
         .then(res => res.json())
         .then(data => {
             if(data.status){
+                localStorage.setItem('auth_token', data.token);
                 const user=data.user
+                console.log(data.token)
                 if(user.position==="teacher"){
                     window.location.href="{!! route('studentAttendance') !!}"
                 }else if(user.position==="HeadTeacher"){

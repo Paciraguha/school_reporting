@@ -61,10 +61,14 @@ Route::get('/classAttendanceReport', function () {
 })->name('getClassAttendanceReport');
 
 
-Route::get('/classAttendanceReport', function () {
-    return view('classReport');
-})->name('getClassAttendanceReport');
+Route::get('/classAttendanceStatistic', function () {
+    return view('studentAttendanceStatistic');
+})->name('studentAttendanceStatistic');
 
+
+Route::get('/classAttendanceDetail/{id}', function () {
+    return view('studentsAttendanceDetail');
+})->name('studentAttendanceDetail');
 
 
 Route::get('/headTeacher', function () {
@@ -78,6 +82,6 @@ Route::get('/headTeacher', function () {
 // Auth::routes();
 
 Route::get('/login', function () {
-    return view('welcome');
+    return view('welcome')->name("login");
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

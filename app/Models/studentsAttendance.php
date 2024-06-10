@@ -12,7 +12,8 @@ class studentsAttendance extends Model
     protected $fillable=[
         "StudentCode",
         "Status",
-        "attendedDay"
+        "attendedDay",
+        "teacherComments"
        
 ];
 }

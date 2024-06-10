@@ -36,8 +36,8 @@
                                 <td>telephone</td>
                                 <td>SchoolName</td>
                                 <td>Class</td>
-                                <td>Assign new class<td>
-                                <td colspan="3">Actions</td>
+                                <td>new class<td>
+                                <td>Actions</td>
                             </tr>
                         </table>
                     </div>
@@ -50,12 +50,16 @@
 </div>
 
 <script>
-
+const token = localStorage.getItem('auth_token');
 async function testButton (){
     let dropdownList=[];
     let  classDropDown="";
     const schoolTeachers=document.getElementById("teacher-section-table")
-    const response = await fetch(`{!! route('apiGetSchoolClass') !!}`);
+    const response = await fetch(`{!! route('apiGetSchoolClass') !!}`,{
+        headers: {
+            'Authorization': 'Bearer ' + token
+             },
+    });
     const schoolClasses = await response.json();
     let i=0;
     schoolClasses.forEach((elem)=>{
@@ -65,8 +69,14 @@ async function testButton (){
     })
 
    
-    const response1 = await fetch(`{!! route('apiGetAllSchoolTeachers') !!}`);
+    const response1 = await fetch(`{!! route('apiGetAllSchoolTeachers') !!}`,{
+        headers: {
+            'Authorization': 'Bearer ' + token
+             },
+    });
+   
     const teachers = await response1.json();
+    console.log(teachers)
         let b=0;
         teachers.forEach((elem)=>{
         b++
@@ -79,9 +89,9 @@ async function testButton (){
                 <td class="teacher-list-${elem.id}">${elem.SchoolName}</td>
                 <td class="teacher-list-${elem.id}">${elem.SchoolClass}</td>
                 <td class="teacher-list-${elem.id}"><select class="form-control" id="${elem.id}">${dropdownList}</select></td>
-                <td class="teacher-list-${elem.id}"><button id="save_${elem.id}" class="btn" onclick="assignClaasToTeacher(${elem.id})">Save</button></td>
-                <td class="teacher-list-${elem.id}"><button id="edit_${elem.id}" class="btn btn-primary" onclick="assignClaasToTeacher(${elem.id})">Edit </button></td>
-                <td class="teacher-list-${elem.id}"><button id="delete_${elem.id}" class="btn btn-danger" onclick="assignClaasToTeacher(${elem.id})">Delete</button></td>
+                <td class="teacher-list-${elem.id}">
+                    <button id="save_${elem.id}" class="btn btn-outline-primary" onclick="assignClaasToTeacher(${elem.id})">Save</button>
+                </td>
             </tr>`
             schoolTeachers.insertAdjacentHTML("beforeend",table);
         })
@@ -102,7 +112,8 @@ testButton();
     const saveData=  fetch(`{!! route('apiAssignClassToTeacher') !!}`,{
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
         },
 
         method: 'post',

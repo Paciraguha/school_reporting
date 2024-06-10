@@ -7,6 +7,7 @@ use App\Models\TeacherClass;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth; 
 
 class HeadTeacherController extends Controller
 {
@@ -23,14 +24,19 @@ class HeadTeacherController extends Controller
      */
     public function create(Request $request)
     {
-        //
+      
         $inputData=$request->all();
-
-        $data=HeadTeacher::create([
-            "UserId"=> $inputData["userId"],
-            "SchoolId"=> $inputData["schoolId"]
-        ]);
-
+       
+       $data = HeadTeacher::where('userId', $inputData["userId"])->first();
+        if($data){
+            $data->update(["SchoolId" => $inputData["schoolId"]]);
+        }else{
+            $data=HeadTeacher::create([
+                "userId"=> $inputData["userId"],
+                "SchoolId"=> $inputData["schoolId"]
+            ]);
+        }
+      
         return response()->json($data);
     }
 
@@ -38,39 +44,57 @@ class HeadTeacherController extends Controller
         $data=$request->all();
         $data1=$data['HeadTeacher'];
       
-        $data=User::leftJoin('head_teachers', 'users.id','=','head_teachers.UserId') 
-        ->leftJoin('schools','head_teachers.SchoolId' , '=','schools.id' )
-        ->get(['users.id','users.created_at','users.firstName','users.lastName','users.email','users.Telephone','schools.SchoolCode','schools.SchoolName']);
-        return response()->json($data);
-
         // $data=User::leftJoin('head_teachers', 'users.id','=','head_teachers.UserId') 
         // ->leftJoin('schools','head_teachers.SchoolId' , '=','schools.id' )
-        // ->where('users.position','=',$data1)
         // ->get(['users.id','users.created_at','users.firstName','users.lastName','users.email','users.Telephone','schools.SchoolCode','schools.SchoolName']);
         // return response()->json($data);
+
+        $data=User::leftJoin('head_teachers', 'users.id','=','head_teachers.UserId') 
+        ->leftJoin('schools','head_teachers.SchoolId' , '=','schools.id' )
+        ->where('users.position','=',$data1)
+        ->get(['users.id','users.created_at','users.firstName','users.lastName','users.email','users.Telephone','schools.SchoolCode','schools.SchoolName']);
+        return response()->json($data);
     }
     
     public function listAllTeacher(){
+        $this->middleware('auth:sanctum');
+        $user_id=Auth::user()->id;
+        //return response()->json($user_id);
+        $user=User::Join('head_teachers', 'users.id','=','head_teachers.UserId') 
+        ->Join('schools','head_teachers.SchoolId' , '=','schools.id' )
+        ->where('users.id','=',$user_id)
+        ->get(['schools.SchoolCode']);
+      // return response()->json($user);
         $data=User::leftJoin('head_teachers', 'users.id','=','head_teachers.UserId') 
         ->leftJoin('schools','head_teachers.SchoolId' , '=','schools.id' )
         ->leftJoin('teacher_classes','teacher_classes.TeacherId' , '=','users.id' )
         ->leftJoin('school_classes','teacher_classes.ClassId' , '=','school_classes.id' )
         ->where('users.position','=','teacher')
-        ->where('schools.SchoolCode','=','001')
+        ->where('schools.SchoolCode','=',$user[0]["SchoolCode"])
         ->get(['users.id','users.created_at','users.firstName','users.lastName','users.email','users.Telephone','schools.SchoolName','school_classes.SchoolClass']);
         return response()->json($data);
-        $data=HeadTeacher::where("SchoolCode",'001' )->where('position','Teacher')->get();
+
+        $data=HeadTeacher::where("SchoolCode",$user[0]["SchoolCode"] )->where('position','Teacher')->get();
         return response()->json($data);
+
     }
 
     public function assignClassToTeacher(Request $request){
         $inputData=$request->all();
-        //return response()->json($inputData);
-        $data=TeacherClass::create([
+
+        $data =TeacherClass::where("TeacherId", $inputData["TeacherId"])
+       ->first();
+
+       if($data){
+           $data->update(["ClassId"=> $inputData["ClassId"]]);
+       }else{
+           $data=TeacherClass::create([
             "TeacherId"=> $inputData["TeacherId"],
             "ClassId"=> $inputData["ClassId"]
         ]);
+       }
         return response()->json($data);
+
     }
 
     /**

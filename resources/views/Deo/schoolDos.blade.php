@@ -89,6 +89,7 @@
                         </div>
                   
 <script>
+const token = localStorage.getItem('auth_token');
  $(document).ready(function() {
        getSectorInfo()
       getAllHeadTeacher()
@@ -109,6 +110,10 @@ function getSectorInfo(){
     $.ajax({
         type: 'GET',
         url: '{!! route('getAllSectors') !!}',
+        headers: {
+            'Authorization': 'Bearer ' + token
+            
+             },
         dataType: 'json',
         success: function(response) {
             const data=response;
@@ -153,6 +158,10 @@ function getAllSchool(){
     $.ajax({
         type: 'GET',
         url:url,
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            "Content-Type":"application/json"
+             },
         dataType: 'json',
         success: function(response) {
             const data=response;
@@ -180,6 +189,10 @@ function getAllHeadTeacher(){
     $.ajax({
         type: 'GET',
         url: '{!! route('apiGetAllSchoolDOS') !!}',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            "Content-Type":"application/json"
+             },
         dataType: 'json',
         success: function(response) {
         const data=response; 
@@ -243,6 +256,10 @@ function getAllHeadTeacher(){
                     $.ajax({
                         type: 'POST',
                         url: '{!! route('apischoolStaffList') !!}',
+                        headers: {
+                        'Authorization': 'Bearer ' + token,
+                        "Content-Type":"application/json"
+                        },
                         data: formData,
                         dataType: 'json',
                         success: function(response) {

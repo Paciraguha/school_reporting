@@ -23,6 +23,7 @@ class SchoolController extends Controller
         ->get(['schools.SchoolCode']);
      
     }
+    
     public function index(Request $request)
     {
      
@@ -69,9 +70,18 @@ class SchoolController extends Controller
 
     public function addClasses(Request $request){
         $inputData=$request->all();
-        
+
+        $this->middleware('auth:sanctum');
+        $user_id=Auth::user()->id;
+        //return response()->json($user_id);
+        $user=User::Join('head_teachers', 'users.id','=','head_teachers.UserId') 
+        ->Join('schools','head_teachers.SchoolId' , '=','schools.id' )
+        ->where('users.id','=',$user_id)
+        ->get(['schools.SchoolCode','schools.id']);
+
+
         $data=SchoolClass::create([
-            "SchoolCode"=>"001",
+            "SchoolCode"=>$user[0]["SchoolCode"],
             "classLevel"=>$inputData["ClassSection"],
             "SchoolClass"=>$inputData["SchoolClass"]
         ]);
@@ -84,17 +94,35 @@ class SchoolController extends Controller
     }
 
     public function getClassLevelsOfSchool(){
-        $schools = School::where('id','1')->get();
+        $this->middleware('auth:sanctum');
+        $user_id=Auth::user()->id;
+        //return response()->json($user_id);
+        $user=User::Join('head_teachers', 'users.id','=','head_teachers.UserId') 
+        ->Join('schools','head_teachers.SchoolId' , '=','schools.id' )
+        ->where('users.id','=',$user_id)
+        ->get(['schools.SchoolCode','schools.id as schoolId']);
+       
+
+        $schools = School::where('id',$user[0]["schoolId"])->get();
         foreach ($schools as $school) {
             $combinationIds = $school->SchoolLevels;
             $schoolLevel = ClassLevel::whereIn('id', $combinationIds)->get(['id','levels']);
-            $school->SchoolLevels = $schoolLevel; // Attach schoolLevel to the school instance
+            $school->SchoolLevels = $schoolLevel; 
         }
         return response()->json($school);
     }
 
     public function getAllSchoolClasses(){
-        $schoolClass=SchoolClass::where('SchoolCode','001')->get();
+
+        $this->middleware('auth:sanctum');
+        $user_id=Auth::user()->id;
+        //return response()->json($user_id);
+        $user=User::Join('head_teachers', 'users.id','=','head_teachers.UserId') 
+        ->Join('schools','head_teachers.SchoolId' , '=','schools.id' )
+        ->where('users.id','=',$user_id)
+        ->get(['schools.SchoolCode']);
+
+        $schoolClass=SchoolClass::where('SchoolCode',$user[0]["SchoolCode"])->get();
         return response()->json($schoolClass); 
     }
     /**
