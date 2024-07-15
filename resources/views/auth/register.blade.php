@@ -1,5 +1,5 @@
 
-@extends('layouts.app')
+@extends('layouts.seolayout')
 @section('content')
         <div class="flex flex-col justify-center items-center h-screen bg-slate-100">
         <h3 class="py-2 border-b-2 border-red-900 my-4">
@@ -28,9 +28,11 @@
                 <label for="position" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Position</label>
                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="position" name="position"  autocomplete="position">
                     <option>Select Position</option>
-                    <option value="HeadTeacher">Head Teacher</option>
-                    <option value="DOS">DOS</option>
                     <option value="Teacher">Teacher</option>
+                    <option value="HeadTeacher">Head Teacher</option>
+                    <option value="SEO">SEO</option>
+                    <option value="DOS">DOS</option>
+                    
                 </select>
             </div>
             <div class="mb-2">

@@ -68,7 +68,7 @@ class HeadTeacherController extends Controller
         $data=User::leftJoin('head_teachers', 'users.id','=','head_teachers.UserId') 
         ->leftJoin('schools','head_teachers.SchoolId' , '=','schools.id' )
         ->leftJoin('teacher_classes','teacher_classes.TeacherId' , '=','users.id' )
-        ->leftJoin('school_classes','teacher_classes.ClassId' , '=','school_classes.id' )
+        ->leftJoin('school_classes','teacher_classes.ClassId' , '=','school_classes.id')
         ->where('users.position','=','teacher')
         ->where('schools.SchoolCode','=',$user[0]["SchoolCode"])
         ->get(['users.id','users.created_at','users.firstName','users.lastName','users.email','users.Telephone','schools.SchoolName','school_classes.SchoolClass']);

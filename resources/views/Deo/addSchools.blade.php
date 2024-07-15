@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.seolayout')
 
 @section('content')
 <style>
@@ -111,12 +111,26 @@
 
 const token = localStorage.getItem('auth_token');
  $(document).ready(function() {
-    getAllSchool()
+ 
     getSectorInfo()
     getClassLevels()
+ 
     $("#addSchool-button").click(function(){
         addNewSchool()
     })
+})
+
+const urlParams = new URLSearchParams(window.location.search);
+    if(urlParams.get('sectorcode')){
+        const sectorCode = urlParams.get('sectorcode');
+        getAllSchoolBySecotor(sectorCode)
+    }else{
+        getAllSchool()
+    }
+
+
+
+
 
 function getSectorInfo(){
     const sector=document.getElementById("sector-options")
@@ -131,14 +145,12 @@ function getSectorInfo(){
             const data=response;
             let i=0;
             data.forEach((response)=>{
-           
            i++
             const options=`
                 <Option value="${response.SectorCode}">${response.SectorName}</Option>
             `
            sector.insertAdjacentHTML("beforeend",options);
         })
-
         },
         error: function(xhr, status, error) {
             // Handle errors if needed
@@ -172,7 +184,6 @@ function getClassLevels(){
             `
             school_levels.insertAdjacentHTML("beforeend",options);
         })
-
         },
         error: function(xhr, status, error) {
             // Handle errors if needed
@@ -182,55 +193,97 @@ function getClassLevels(){
 }
 
 
-function getAllSchool(){
-    const schools=document.getElementById("school-section-table")
- 
+function getAllSchool() {
+    const schools = document.getElementById("school-section-table");
+
     $.ajax({
         type: 'GET',
         url: '{!! route('getAllSchools') !!}',
         headers: {
-            'Authorization': 'Bearer ' + token
-            
-             },
+            'Authorization': 'Bearer ' + token,
+        },
         dataType: 'json',
         success: function(response) {
-
-            const data=response;
-            let i=0;
-            data.forEach((response)=>{
-                let levels=[];
-                console.log(response.SchoolLevels)
-           const lev=response.SchoolLevels
-                lev.forEach(element => {
-                    levels.push(element.levels)
-                });
-           i++
-            const table1=`
-            <tr class="border-b border-neutral-200 dark:border-white/10 tr-data">
-                <td class="whitespace-nowrap px-6 py-4">${i}</td>
-                <td class="whitespace-nowrap px-6 py-4">${response.created_at}</td>
-                <td class="whitespace-nowrap px-6 py-4">${response.SectorCode}</td>
-                <td class="whitespace-nowrap px-6 py-4">${response.SchoolCode}</td>
-                <td class="whitespace-nowrap px-6 py-4">${response.SchoolName}</td>
-                <td class="whitespace-nowrap px-6 py-4">${JSON.stringify(levels)}</td>
-                <td class="whitespace-nowrap px-6 py-4"><button class="btn btn-primary">Edit</button></td>
-                <td class="whitespace-nowrap px-6 py-4"><button class="btn btn-danger">Delete</button></td>
-            </tr>
-            `
-
-           schools.insertAdjacentHTML("beforeend",table1);
-          
-        })
-        
+            try {
+                if (Array.isArray(response)) {
+                    let i = 0;
+                    response.forEach((school) => {
+                        let levels = school.SchoolLevels.map(level => level.levels);
+                        i++;
+                        let result = levels.join(", ");
+                        const tableRow = `
+                            <tr class="border-b border-neutral-200 dark:border-white/10 tr-data">
+                                <td class="whitespace-nowrap px-6 py-4">${i}</td>
+                                <td class="whitespace-nowrap px-6 py-4">${school.created_at.split('T')[0]}</td>
+                                <td class="whitespace-nowrap px-6 py-4">${school.SectorCode}</td>
+                                <td class="whitespace-nowrap px-6 py-4">${school.SchoolCode}</td>
+                                <td class="whitespace-nowrap px-6 py-4">${school.SchoolName}</td>
+                                <td class="whitespace-nowrap px-6 py-4">${result}</td>
+                                <td class="whitespace-nowrap px-6 py-4"><button class="btn btn-primary">Edit</button></td>
+                                <td class="whitespace-nowrap px-6 py-4"><button class="btn btn-danger">Delete</button></td>
+                            </tr>
+                        `;
+                        schools.insertAdjacentHTML("beforeend", tableRow);
+                    });
+                } else {
+                    console.error("Unexpected response format:", response);
+                }
+            } catch (error) {
+                console.error("Error processing response:", error);
+            }
         },
         error: function(xhr, status, error) {
-            // Handle errors if needed
-            console.log(error);
+            console.error("Error fetching school data:", xhr.responseText || xhr.statusText, error);
         }
     });
 }
 
 
+function getAllSchoolBySecotor(id) {
+    const schools = document.getElementById("school-section-table");
+
+    $.ajax({
+        type: 'GET',
+        url: '{!! route('getAllSchools') !!}',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        },
+        data:{sectorCode:id},
+        dataType: 'json',
+        success: function(response) {
+            try {
+                if (Array.isArray(response)) {
+                    let i = 0;
+                    response.forEach((school) => {
+                        let levels = school.SchoolLevels.map(level => level.levels);
+                        i++;
+                        let result = levels.join(", ");
+                        const tableRow = `
+                            <tr class="border-b border-neutral-200 dark:border-white/10 tr-data">
+                                <td class="whitespace-nowrap px-6 py-4">${i}</td>
+                                <td class="whitespace-nowrap px-6 py-4">${school.created_at.split('T')[0]}</td>
+                                <td class="whitespace-nowrap px-6 py-4">${school.SectorCode}</td>
+                                <td class="whitespace-nowrap px-6 py-4">${school.SchoolCode}</td>
+                                <td class="whitespace-nowrap px-6 py-4">${school.SchoolName}</td>
+                                <td class="whitespace-nowrap px-6 py-4">${result}</td>
+                                <td class="whitespace-nowrap px-6 py-4"><button class="btn btn-primary">Edit</button></td>
+                                <td class="whitespace-nowrap px-6 py-4"><button class="btn btn-danger">Delete</button></td>
+                            </tr>
+                        `;
+                        schools.insertAdjacentHTML("beforeend", tableRow);
+                    });
+                } else {
+                    console.error("Unexpected response format:", response);
+                }
+            } catch (error) {
+                console.error("Error processing response:", error);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching school data:", xhr.responseText || xhr.statusText, error);
+        }
+    });
+}
 
 
 
@@ -247,8 +300,6 @@ let schoolLevel=[];
     schoolLevel.push(checkbox.value)
   }  
     
-        
-   
 const data={
    SectorCode,
    SchoolName,
@@ -267,7 +318,6 @@ function addNewSchool(){
                 url: '{!! route('addNewSchool') !!}',
                 headers: {
                 'Authorization': 'Bearer ' + token
-               
                 },
                 data: formData,
                 dataType: 'json',
@@ -282,7 +332,7 @@ function addNewSchool(){
             });
           
         }
-})
+
 
 
 </script>

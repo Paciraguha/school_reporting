@@ -18,26 +18,27 @@
         justify-content:space-around
     }
 </style>
-<div class="container"  style="padding-left:20px;padding-right:20px;margin-right:50px;margin:auto">
+            <div class="container"  style="padding-left:20px;padding-right:20px;margin-right:50px;margin:auto">
    
                         <div class="flex w-full py-5 shadow-lg rounded-sm mb-3 overflow-x-auto px-100 ">
-                         <table class="w-full  rounded-sm border-collapse border border-slate-400 mx-11" id="student-section-table" >
+                         <table class=" display w-full rounded-sm border-collapse border border-slate-400 mx-11" id="dynamic-table"  >
+                           <thead>
                             <tr class="border border-slate-700">
-                                <td rowspan="2" class="px-6 py-2 border border-slate-300">No</td>
-                                <td  rowspan="2" class="px-6 py-2 border border-slate-300 text-[#530b]"> Student Code</td>
-                                <td rowspan="2" class="px-6 py-2 border border-slate-300"> Class Level</td>
-                                <td  rowspan="2" class="px-6 py-2 border border-slate-300"> FirstName</td>
-                                <td  rowspan="2" class="px-6 py-2 border border-slate-100">LastName</td>
-                                <td  rowspan="2" class="px-6 py-2 border border-slate-300">Gender</td>
-                                <td colspan="5" class="px-6 py-2 border border-slate-300">Attendance Statistic</td>
+                                <th rowspan="2" class="px-6 py-2 border border-slate-300">No</th>
+                                <th  rowspan="2" class="px-6 py-2 border border-slate-300 text-[#530b]"> Student Code</th>
+                                <th rowspan="2" class="px-6 py-2 border border-slate-300"> Class Level</th>
+                                <th  rowspan="2" class="px-6 py-2 border border-slate-300"> FirstName</th>
+                                <th  rowspan="2" class="px-6 py-2 border border-slate-100">LastName</th>
+                                <th  rowspan="2" class="px-6 py-2 border border-slate-300">Gender</th>
+                                <th colspan="5" class="px-6 py-2 border border-slate-300">Attendance Statistic</th>
                             </tr>
                             <tr class="border border-slate-700">
-                                <td class="px-6 py-2 border border-slate-300"> Total</td>
-                                <td class="px-6 py-2 border border-slate-300">Present </td>
-                                <td class="px-6 py-2 border border-slate-300">Absent</td>
-                                <td class="px-6 py-2 border border-slate-300">%</td>
-                                <td class="px-6 py-2 border border-slate-300">Action</td>
-                            </tr>
+                                <th class="px-6 py-2 border border-slate-300"> Total</th>
+                                <th class="px-6 py-2 border border-slate-300">Present </th>
+                                <th class="px-6 py-2 border border-slate-300">Absent</th>
+                                <th class="px-6 py-2 border border-slate-300">%</th>
+                                <th class="px-6 py-2 border border-slate-300">Action</th>
+                            </tr></thead><tbody id="student-section-table" ></tbody>
                          </table>
                     </div>
                 </div>
@@ -46,19 +47,32 @@
         </div>
     </div>
     <!-- submit button ----------------------------------------- -->
-</div>
+    <table id="dynamic-table" class="display">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 
+</div>
 <script>
 
 const token=localStorage.getItem('auth_token');
  $(document).ready(function() {
+    
     getAllStudent()
     
  })
 
+
 function getAllStudent(){
     const schools=document.getElementById("student-section-table")
-   
+    var table = new DataTable('#dynamic-table');
     $.ajax({
         type: 'GET',
         url: '{!! route('getStudentsAttendanceScore') !!}',
@@ -70,7 +84,6 @@ function getAllStudent(){
         success: function(response) {
 
             const data=response;
-            console.log("----------------------------------------",response)
             let i=0;
             data.forEach((response)=>{
             
@@ -118,7 +131,7 @@ function getAllStudent(){
            
            }
          
-           schools.insertAdjacentHTML("beforeend",table1);
+           table.row.add($(table1)).draw(false);
         })
         
         },

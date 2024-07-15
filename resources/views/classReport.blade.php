@@ -32,7 +32,7 @@
                         <thead>
                            <tr class="border border-slate-700">
                                 <th colspan='5' class="px-6 py-2 border border-slate-300" > Total Student</td>
-                                <th colspan='4' class="px-6 py-2 border border-slate-300">Attendance Detail </td>
+                                <th colspan='5' class="px-6 py-2 border border-slate-300">Attendance Detail </td>
                             </tr>
                             <tr class="border border-slate-700">
                                 <th class="px-6 py-2 border border-slate-300">No</th>
@@ -44,6 +44,7 @@
                                 <th class="px-6 py-2 border border-slate-300">Attended Male</th>
                                 <th class="px-6 py-2 border border-slate-300">Attended Female</th>
                                 <th class="px-6 py-2 border border-slate-300">Percentage</th>
+                                <th class="px-6 py-2 border border-slate-300">Details</th>
                             </tr>
                         <thead>
                             <tbody id="student-section-table">
@@ -141,9 +142,9 @@ function getAttendanceReport(){
                 <td class="whitespace-nowrap px-6 py-2 border border-slate-300">${response.totalPresentMale}</td>
                 <td class="whitespace-nowrap px-6 py-2 border border-slate-300">${response.totalPresentFemale}</td>
                 <td class="whitespace-nowrap px-6 py-2 border border-slate-300">${Math.floor(response.totalPresent*100/response.totalRegistered)} %</td>
+                <td class="whitespace-nowrap px-6 py-2 border border-slate-300"><a class='btn btn-outline-primary' href='/classAttendance?attendance=${response.attendedDay}'>detail</a></td>
             </tr>
             `
-
            schools.insertAdjacentHTML("beforeend",table1);
           
         })

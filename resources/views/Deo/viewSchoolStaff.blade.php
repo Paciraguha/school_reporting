@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.seolayout')
 
 @section('content')
 <style>
@@ -247,7 +247,7 @@ function getAllHeadTeacher(id){
         const table=`
             <tr class="border-b border-neutral-200 dark:border-white/10 tr-data">
                 <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}" >${b}</td>
-                <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.created_at}</td>
+                <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.created_at.split("T")[0]}</td>
                 <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.firstName} ${elem.lastName}</td>
                 <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.email}</td>
                 <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.Telephone}</td>

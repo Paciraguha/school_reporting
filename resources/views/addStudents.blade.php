@@ -1,4 +1,4 @@
-@extends('layouts.school')
+@extends('layouts.doslayout')
 
 @section('content')
 <style>

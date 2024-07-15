@@ -1,4 +1,4 @@
-@extends('layouts.school')
+@extends('layouts.doslayout')
 
 @section('content')
 <style>
@@ -96,7 +96,7 @@
 </div> 
 
 
-            <div class="flex flex-col w-full md:w-[80%]  border border-amber-300 px-5 py-8 mt-12">
+            <div class="flex flex-col w-full md:w-[100%]  border border-amber-300 px-5 py-8 mt-12">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                         <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" 
@@ -107,15 +107,15 @@
                     <h3 class="py-2 border-b-2 border-red-900 my-4 w-full" id="table-title">
                         {{ __("Class section in school") }}
                     </h3>
-                    <div class="overflow-hidden">
-                    <table class="min-w-full text-left text-sm font-light text-surface dark:text-white" >
+                    <div class="overflow-hidden mx-auto">
+                    <table class="min-w-full text-left text-sm font-light text-surface dark:text-white mx-auto" >
                             <thead class="border-b border-neutral-200 font-medium dark:border-white/10">
                             <tr>
                                 <td rowspan="2" class="px-6 py-4">No</td>
                                 <td rowspan="2" class="px-6 py-4">Date of Registration</td>
                                 <td class="px-6 py-4"> School Code</td>
                                 <td class="px-6 py-4">Classes </td>
-                                <td class="px-6 py-4" colspan="2">Actions</td>
+                                <td class="px-6 py-4" colspan="3">Actions</td>
                             </tr>
                         </thead>
                         <tbody id="class-section-table">
@@ -190,14 +190,19 @@ function getAllClass(){
             data.forEach((response)=>{
            
            i++
+
+                const classStudent = `/studentinclass/${response.id}`;
+                const studendentInClass=`/dosStdudentInClass?studentsClass=${response.id}`
             const table1=`
             <tr class="border-b border-neutral-200 dark:border-white/10 tr-data">
                 <td class="whitespace-nowrap px-6 py-4">${i}</td>
                 <td class="whitespace-nowrap px-6 py-4">${response.created_at}</td>
                 <td class="whitespace-nowrap px-6 py-4">${response.SchoolCode}</td>
                 <td class="whitespace-nowrap px-6 py-4">${response.SchoolClass}</td>
-                <td class="whitespace-nowrap px-6 py-4"><button>Edit</button></td>
-                <td class="whitespace-nowrap px-6 py-4"><button>Delete</button></td>
+                <td class="whitespace-nowrap px-6 py-4 flex justify-evenly">
+                 <a  href="${classStudent}" class="bg-blue hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"> Attendance statistic</button>
+                 <a  href="${studendentInClass}" class="btn btn-success">Daily Attendance</button>
+                 <a class="btn btn-warning"> Edit</a></td>
             </tr>
             `
 

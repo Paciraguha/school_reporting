@@ -13,14 +13,13 @@ return new class extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
            $table->increments('id');;
-            $table->string('Schoolcode')->nullable();
-            $table->string('position')->nullable();
-            $table->string('RepresentationClass')->nullable();
-            $table->string('FirstName');
-            $table->string('LastName');
-            $table->string('email')->nullable();
-            $table->string('Telephone');
+            $table->string('teacherId');
+            $table->string('status');
+            $table->string('attendedDay');
+            $table->string('comments');
             $table->timestamps();
+    
+            
         });
     }
 

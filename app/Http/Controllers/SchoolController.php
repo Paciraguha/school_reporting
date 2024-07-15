@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\School;
 use App\Models\SchoolClass;
 use App\Models\User;
+use App\Models\Sector;
 use App\Models\ClassLevel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -27,16 +28,50 @@ class SchoolController extends Controller
     public function index(Request $request)
     {
      
-        
-        $schools = School::all();
+        if (Auth::check()) {
+            $loggeduser=Auth::user();
 
-        foreach ($schools as $school) {
-            $combinationIds = $school->SchoolLevels;
-            $schoolLevel = ClassLevel::whereIn('id', $combinationIds)->get(['levels']);
-            $school->SchoolLevels = $schoolLevel; // Attach schoolLevel to the school instance
-        }
+       // return response()->json($loggeduser);
+            if($loggeduser['position']==="DEO"){
+                
+               // return response()->json($request['sectorCode']);
+                if(isset($request['sectorCode'])){
+                    $schools = School::where('SectorCode',$request['sectorCode'])->get();
     
-      return response()->json($schools);
+                    foreach ($schools as $school) {
+                        $combinationIds = $school->SchoolLevels;
+                        $schoolLevel = ClassLevel::whereIn('id', $combinationIds)->get(['levels']);
+                        $school->SchoolLevels = $schoolLevel; // Attach schoolLevel to the school instance
+                    }
+                    return response()->json($schools);
+
+                }else{
+                $schools = School::all();
+                foreach ($schools as $school) {
+                    $combinationIds = $school->SchoolLevels;
+                    $schoolLevel = ClassLevel::whereIn('id', $combinationIds)->get(['levels']);
+                    $school->SchoolLevels = $schoolLevel; // Attach schoolLevel to the school instance
+                }
+               return response()->json($schools);
+                 }
+            }else if($loggeduser['position']==="SEO"){
+                $sector =Sector::leftJoin('sector_leaders','sector_leaders.SectorId','=','sectors.id')
+                ->leftJoin('users','users.id','=','sector_leaders.userId')
+                ->first();
+                // return response()->json($sector['SectorCode']);
+                $schools = School::where('SectorCode',$sector['SectorCode'])->get();
+    
+                foreach ($schools as $school) {
+                    $combinationIds = $school->SchoolLevels;
+                    $schoolLevel = ClassLevel::whereIn('id', $combinationIds)->get(['levels']);
+                    $school->SchoolLevels = $schoolLevel; // Attach schoolLevel to the school instance
+                }
+                return response()->json($schools);
+            }
+           
+    }else{
+        return response()->json(['error' => 'Unauthenticated'], 401);  
+    }
     }
 
     /**
@@ -73,7 +108,7 @@ class SchoolController extends Controller
 
         $this->middleware('auth:sanctum');
         $user_id=Auth::user()->id;
-        //return response()->json($user_id);
+        
         $user=User::Join('head_teachers', 'users.id','=','head_teachers.UserId') 
         ->Join('schools','head_teachers.SchoolId' , '=','schools.id' )
         ->where('users.id','=',$user_id)
@@ -96,7 +131,7 @@ class SchoolController extends Controller
     public function getClassLevelsOfSchool(){
         $this->middleware('auth:sanctum');
         $user_id=Auth::user()->id;
-        //return response()->json($user_id);
+
         $user=User::Join('head_teachers', 'users.id','=','head_teachers.UserId') 
         ->Join('schools','head_teachers.SchoolId' , '=','schools.id' )
         ->where('users.id','=',$user_id)

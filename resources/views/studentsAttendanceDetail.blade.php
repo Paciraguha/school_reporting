@@ -83,7 +83,7 @@ const id = getIdFromCurrentUrl();
     getAllStudent()
      
  })
-    
+
 
 function getAllStudent(){
     const studentList=document.getElementById("student-section-table")

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.seolayout')
 
 @section('content')
 <style>
@@ -191,19 +191,18 @@ function getAllHeadTeacher(){
         url: '{!! route('apiGetAllSchoolDOS') !!}',
         headers: {
             'Authorization': 'Bearer ' + token,
-            "Content-Type":"application/json"
              },
         dataType: 'json',
         success: function(response) {
         const data=response; 
-        console.log(data)  
+        console.log("--------------------",data)  
         let b=0;
         data.forEach((elem)=>{
         b++
         const table=`
             <tr class="border-b border-neutral-200 dark:border-white/10">
                 <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}" >${b}</td>
-                <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.created_at}</td>
+                <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.created_at.split("T")[0]}</td>
                 <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.firstName} ${elem.lastName}</td>
                 <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.email}</td>
                 <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.Telephone}</td>
@@ -263,7 +262,7 @@ function getAllHeadTeacher(){
                         data: formData,
                         dataType: 'json',
                         success: function(response) {
-                            console.log(response)
+                            console.log("+++++++++++++++++++++++",response)
                           //  window.location.reload()
                         },
                         error: function(xhr, status, error) {

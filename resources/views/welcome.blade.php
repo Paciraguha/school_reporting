@@ -117,20 +117,23 @@
         .then(res => res.json())
         .then(data => {
             if(data.status){
+                console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",data)
                 localStorage.setItem('auth_token', data.token);
+                localStorage.setItem('auth_user', JSON.stringify(data.user));
+                localStorage.setItem('auth_post', JSON.stringify(data.post));
                 const user=data.user
-                console.log(data.token)
+                
                 if(user.position==="Teacher"){
                     window.location.href="{!! route('studentAttendance') !!}"
-                }else if(user.position==="HeadTeacher"){
-                    window.location.href="{!! route('headTeacherHome') !!}"
                 }else if(user.position==="DEO"){
                     window.location.href="{!! route('home') !!}"
-                }else if(user.position==="DOS"){
-
+                }else if(user.position==="DOS" || user.position==="HeadTeacher"){
+                    window.location.href="{!! route('schooldosindex') !!}"
+                }else if(user.position==="SEO"){
+                  window.location.href="{!! route('SEO_Welcome') !!}"
                 }
 
-               console.log(data.user)
+               console.log(data)
             }else{
                 loginError.innerHTML=data.message;
             }
