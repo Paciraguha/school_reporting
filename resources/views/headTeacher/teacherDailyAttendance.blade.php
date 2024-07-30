@@ -105,7 +105,7 @@ $(document).ready(function() {
     })
     
     $("#check_date").click(async function(){
-        alert("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+
         await teacherAttendanceList()
     })
 
@@ -139,7 +139,6 @@ async function teacherAttendanceList() {
             dataType: 'json'
         });
 
-
         const data = response;
         let i = 0;
 
@@ -161,6 +160,7 @@ async function teacherAttendanceList() {
             });
             
             const userdata = attendanceResponse.teacherId;
+            const teacherAttendanceDetailUrl = `/teacherAttendanceDetail/${teachers.id}`;
             const currentDate= checkToday()
             if(currentDate===todayDate()){
              
@@ -171,26 +171,26 @@ async function teacherAttendanceList() {
                 <td class="teacher-list-${teachers.id}">${teachers.email}</td>
                 <td class="teacher-list-${teachers.id}">${teachers.Telephone}</td>
                 <td class="teacher-list-${teachers.id}">${teachers.SchoolName}</td>
-                <td class="teacher-list-${teachers.id}">${teachers.SchoolClass}</td>
+                <td class="teacher-list-${teachers.id}">${teachers.levels}</td>
                 
                  <td id="status${teachers.id}">
-                        ${teachers.id == userdata && teachers.status == 'Present' ?
+                        ${teachers.id ==  attendanceResponse.teacherId  &&  attendanceResponse.status == 'Present' ?
                             ('<svg class="h-8 w-8 text-indigo-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>') :
-                        teachers.id == userdata && teachers.status == 'Absent' ?
+                        teachers.id ==  attendanceResponse.teacherId  &&  attendanceResponse.status == 'Absent' ?
                             ('<svg class="h-7 w-7 text-red-600" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>')
                             :"<i class='text-[#FF0000]'>not marked</i>"
                         }
                 </td>
                 
                  <td class="teacher-list-${teachers.id}">
-                    <button id="present${teachers.id}" class="btn btn-outline-primary" ${teachers.id == userdata && teachers.status == 'Present'?"disabled":""}  onclick="attendedStudent(${teachers.id})">Present</button>
+                    <button id="present${teachers.id}" class="btn btn-outline-primary" ${teachers.id ==  attendanceResponse.teacherId  &&  attendanceResponse.status == 'Present'?"disabled":""}  onclick="attendedStudent(${teachers.id})">Present</button>
                 </td>
                 <td class="teacher-list-${teachers.id}">
-                    <button id="absent${teachers.id}" class="btn btn-outline-danger" ${teachers.id == userdata && teachers.status == 'Absent'?"disabled":""} onclick="openModal(${teachers.id})">Absent</button>
+                    <button id="absent${teachers.id}" class="btn btn-outline-danger" ${teachers.id ==  attendanceResponse.teacherId  &&  attendanceResponse.status == 'Absent'?"disabled":""} onclick="openModal(${teachers.id})">Absent</button>
                 </td>
                 </>
                  <td class="teacher-list-${teachers.id}">
-                    <button id="save_${teachers.id}" class="btn btn-success" onclick="assignClaasToTeacher(${teachers.id})">statistic</button>
+                    <a href="${teacherAttendanceDetailUrl}"  class="btn btn-success" onclick="assignClaasToTeacher(${teachers.id})">statistic</a>
                 </td>
             </tr>`
             schoolTeachers.insertAdjacentHTML("beforeend",table);
@@ -206,9 +206,9 @@ async function teacherAttendanceList() {
                 <td class="teacher-list-${teachers.id}">${teachers.SchoolClass}</td>
                 
                  <td id="status${teachers.id}">
-                        ${teachers.id == userdata && teachers.status == 'Present' ?
+                        ${teachers.id ==  attendanceResponse.teacherId  &&  attendanceResponse.status == 'Present' ?
                             ('<svg class="h-8 w-8 text-indigo-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>') :
-                        teachers.id == userdata && teachers.status == 'Absent' ?
+                        teachers.id ==  attendanceResponse.teacherId  &&  attendanceResponse.status == 'Absent' ?
                             ('<svg class="h-7 w-7 text-red-600" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>')
                             :"<i class='text-[#FF0000]'>not marked</i>"
                         }
@@ -222,7 +222,7 @@ async function teacherAttendanceList() {
                 </td>
                 </>
                  <td class="teacher-list-${teachers.id}">
-                    <button id="save_${teachers.id}" class="btn btn-success" onclick="assignClaasToTeacher(${teachers.id})">statistic</button>
+                    <a href="${teacherAttendanceDetailUrl}"  class="btn btn-success" onclick="assignClaasToTeacher(${teachers.id})">statistic</a>
                 </td>
             </tr>`
             schoolTeachers.insertAdjacentHTML("beforeend",table);

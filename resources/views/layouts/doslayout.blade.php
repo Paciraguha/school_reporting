@@ -10,12 +10,34 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.bootstrap5.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/staterestore/1.4.1/css/stateRestore.bootstrap5.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/dataTables.foundation.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Include DataTables JS -->
+    
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/staterestore/1.4.1/js/dataTables.stateRestore.js"></script>
+    <script src="https://cdn.datatables.net/staterestore/1.4.1/js/stateRestore.bootstrap5.js"></script>
+    
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+  
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.bootstrap5.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -58,6 +80,11 @@
 
 
 <script>
+
+if(!localStorage.getItem('auth_token') && !localStorage.getItem('auth_post')){
+        window.location.href="/"
+}
+
 if (localStorage.getItem('auth_token')) {
     const user = JSON.parse(localStorage.getItem('auth_user'))
     const workPost = JSON.parse(localStorage.getItem('auth_post'))
@@ -129,12 +156,12 @@ if (localStorage.getItem('auth_token')) {
                     </button>
                     <ul id="report-dropdown-example" class="hidden ml-6 py-2 space-y-1">
                         <li>
-                            <a href="{{route('dosStudentReports')}}"
+                            <a href="{{route('schoolStudentReports')}}"
                                 class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Student
                                 Attendance</a>
                         </li>
                         <li>
-                            <a href="{{route('dailyTeacherAttendanceReport')}}"
+                            <a href="{{route('dailyTeacherAttendance')}}"
                                 class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Teacher
                                 Attendance</a>
                         </li>
@@ -242,12 +269,12 @@ if (localStorage.getItem('auth_token')) {
                     </button>
                     <ul id="report-dropdown-example" class="hidden ml-6 py-2 space-y-1">
                         <li>
-                            <a href="{{route('dosStudentReports')}}"
+                            <a href="{{route('schoolStudentReports')}}"
                                 class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Student
                                 Attendance</a>
                         </li>
                         <li>
-                            <a href="{{route('teachersAttendanceReport')}}"
+                            <a href="{{route('dailyTeacherAttendance')}}"
                                 class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Teacher
                                 Attendance</a>
                         </li>

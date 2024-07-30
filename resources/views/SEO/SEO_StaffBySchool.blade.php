@@ -27,13 +27,19 @@
         <table class="display text-left text-sm font-light text-surface dark:text-white" id="example" style="width:100%">
             <thead>
                 <tr class="border border-slate-700">
-                    <th class="px-6 py-4">No</th>
-                    <th class="px-6 py-4">Date of Registration</th>
-                    <th class="px-6 py-4"> Name</th>
-                    <th class="px-6 py-4">email</th>
-                    <th class="px-6 py-4">telephone</th>
-                    <th class="px-6 py-4">School Code</th>
-                    <th class="px-6 py-4">School Name</th>
+                    <th class="px-2 py-2 border border-slate-300">No</th>
+                    <th class="px-2 py-2 border border-slate-300">Date of Registration</th>
+                    <th class="px-2 py-2 border border-slate-300"> Name</th>
+                    <th class="px-2 py-2 border border-slate-300">email</th>
+                    <th class="px-2 py-2 border border-slate-300">telephone</th>
+                    <th class="px-2 py-2 border border-slate-300">position</th>
+                    <th class="px-2 py-2 border border-slate-300">School Code</th>
+                    <th class="px-2 py-2 border border-slate-300">School Name</th>
+                    <th class="px-2 py-2 border border-slate-300">Total</th>
+                    <th class="px-2 py-2 border border-slate-300">Present</th>
+                    <th class="px-2 py-2 border border-slate-300">Absent</th>
+                    <th class="px-2 py-2 border border-slate-300">%</th>
+                    <th class="px-2 py-2 border border-slate-300">Teacher Attendance</th>
                 </tr>
             </thead>
             <tbody id="teacher-section-table">
@@ -87,16 +93,25 @@ const schoolId = getIdFromCurrentUrl();
                 console.log("hhhhhhhhh", data)
                 let b = 0;
                 data.forEach((elem) => {
+                    const percentage=Number(Math.round(elem.totalPresent*100 / elem.totalRegistered))
                     b++
                     const table = `
             <tr class="border border-slate-700">
-                <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}" >${b}</td>
-                <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.created_at.split("T")[0]}</td>
-                <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.firstName} ${elem.lastName}</td>
-                <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.email}</td>
-                <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.Telephone}</td>
-                <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.SchoolCode}</td>
-                <td class="whitespace-nowrap px-6 py-4 teacher-list-${elem.id}">${elem.SchoolName}</td>
+                <td class="px-2 py-2 border border-slate-300" >${b}</td>
+                <td class="px-2 py-2 border border-slate-300">${elem.created_at.split("T")[0]}</td>
+                <td class="px-2 py-2 border border-slate-300">${elem.firstName} ${elem.lastName}</td>
+                <td class="px-2 py-2 border border-slate-300">${elem.email}</td>
+                <td class="px-2 py-2 border border-slate-300">${elem.Telephone}</td>
+                <td class="px-2 py-2 border border-slate-300">${elem.position}</td>
+                <td class="px-2 py-2 border border-slate-300">${elem.SchoolCode}</td>
+                <td class="px-2 py-2 border border-slate-300">${elem.SchoolName}</td>
+                 <td class="px-2 py-2 border border-slate-300">${elem.totalRegistered}</td>
+                <td class="px-2 py-2 border border-slate-300">${elem.totalPresent}</td>
+                <td class="px-2 py-2 border border-slate-300">${elem.totalAbsent}</td>
+                <td class="px-2 py-2 border border-slate-300">${percentage}</td>
+                <td class="px-2 py-2 border border-slate-300">
+                        <a href="/SEO-teacherAttendanceDetail/${elem.id}"  class="btn btn-success">Attendance</a>
+                 </td>
             </tr>`
                     schoolTeachers.insertAdjacentHTML("beforeend", table);
                 })

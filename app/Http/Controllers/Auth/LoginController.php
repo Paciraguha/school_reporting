@@ -52,6 +52,12 @@ class LoginController extends Controller
                                    ->join("schools",'schools.id','=','head_teachers.SchoolId')
                                    ->join("sectors",'sectors.SectorCode','=','schools.SectorCode')
                                    ->first();
+                if(!$school){
+                    return response()->json([
+                        'error'=>false,
+                        'message'=>"Unauthorised Access , you need access from Deo to login into system"
+                    ],401);
+                }
             }
 
             if($user['position']=='Teacher'){
@@ -65,9 +71,18 @@ class LoginController extends Controller
 
             
             if($user['position']=='SEO'){
-                $school=Sector::leftJoin('sector_leaders','sector_leaders.SectorId','=','sectors.id')
-                ->leftJoin('users','users.id','=','sector_leaders.userId')
+                $school=Sector::join('sector_leaders','sector_leaders.SectorId','=','sectors.id')
+                ->join('users','users.id','=','sector_leaders.userId')
+                ->where("sector_leaders.userId","=",$user['id'])
                 ->first();
+
+
+                if(!$school){
+                    return response()->json([
+                        'error'=>false,
+                        'message'=>"Unauthorised Access , you need access from Deo to login into system"
+                    ],401);
+                }
             }
     
     

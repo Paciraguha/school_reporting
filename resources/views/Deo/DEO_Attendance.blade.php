@@ -17,12 +17,20 @@
     align-items: center;
     justify-content: space-around
 }
+.display tbody tr:nth-child(odd) {
+        background-color:#F8FDFD  ;
+    }
+
+
 </style>
 <div class="flex flex-col p-4">
     <h3 class="pb-4  mb-6 w-full border-b-2 border-red-900 font-bold text-[20px]" id="reportHeader"> </h3>
     <div class="flex w-2/3 py-5 rounded-sm mb-3  mx-auto items-center">
         
-        <label class="w-[40px] font-bold text-[18px]">Date:</label><input type="date" name="toDate" id="toDate" class="w-1/3 mx-3 rounded-lg " />
+        <label class="w-[40px] font-bold text-[18px]">From:</label>
+        <input type="date" name="fromDate" id="fromDate" class="w-1/3 mx-3 rounded-lg " />
+         <label class="w-[40px] font-bold text-[18px]">to:</label>
+         <input type="date"  name="toDate" id="toDate" placeholder="from" class="w-1/3 mx-3 rounded-lg "/>              
         <button type="button" class="w-[170px] text-[#ffff] text-1xl font-medium bg-blue-900 h-10" id="check_date"> check report</button>
     </div>
    
@@ -30,30 +38,30 @@
     <div class="flex gap-4">
         <div class="flex flex-col rounded-md shadow-lg p-4 w-1/2">
             <h3 class="py-2  my-4 w-full  font-extralight text-[20px]" id="table-title">
-                {{ __("Student attendance Detail in nusery") }}
+                {{ __("Student attendance Detail in Nusery") }}
             </h3>
-            <div class="flex w-full p-2 mx-auto" id="nusery-section">
-                <table class="w-[92%] rounded-sm border-collapse border border-slate-400 text-center mx-auto">
-                    <theady>
+            <div id="nusery-section">
+            <table   class=" display w-[100%] rounded-sm border-collapse border border-slate-400 text-center mx-auto">
+                    <thead>
                         <tr class="border border-slate-300">
-                            <td colspan="5" class="px-2 py-2 border border-slate-300">Total Registered</td>
-                            <td colspan="4" class="px-2 py-2 border border-slate-300">Total Attended</td>
+                            <th colspan="5" class="px-2 py-2 border border-slate-300">Total Registered</th>
+                            <th colspan="4" class="px-2 py-2 border border-slate-300">Total Attended</th>
                         </tr>
                         <tr class="border border-slate-300">
-                            <td class="px-2 py-2 border border-slate-300">No</td>
-                            <td class="px-2 py-2 border border-slate-300">School</td>
-                            <td class="px-2 py-2 border border-slate-300">Total</td>
-                            <td class="px-2 py-2 border border-slate-300">Male</td>
-                            <td class="px-2 py-2 border border-slate-300">Female</td>
-                            <td class="px-2 py-2 border border-slate-300">Total</td>
-                            <td class="px-2 py-2 border border-slate-300">Female</td>
-                            <td class="px-2 py-2 border border-slate-300">Male</td>
-                            <td class="px-2 py-2 border border-slate-300">%</td>
+                            <th hclass="px-2 py-2 border border-slate-300">No</th>
+                            <th class="px-2 py-2 border border-slate-300">class</th>
+                            <th class="px-2 py-2 border border-slate-300">Total</th>
+                            <th class="px-2 py-2 border border-slate-300">Male</th>
+                            <th class="px-2 py-2 border border-slate-300">Female</th>
+                            <th class="px-2 py-2 border border-slate-300">Total</th>
+                            <th class="px-2 py-2 border border-slate-300">Female</th>
+                            <th class="px-2 py-2 border border-slate-300">Male</th>
+                            <th class="px-2 py-2 border border-slate-300">%</th>
                         </tr>
-                    </theady>
+                    </thead>
 
                     <tbody class="" id="nusery-section-table">
-                        <tr><td colspan="9">nursery report section<td></tr>
+                        
                     </tbody>
                 </table>
             </div>
@@ -63,28 +71,27 @@
             <h3 class="py-2  my-4 w-full  font-extralight text-[20px]">
                 {{ __("Student attendance Detail in Primary") }}
             </h3>
-            <div class="" id="primary-section">
-                <table class="w-[92%] rounded-sm border-collapse border border-slate-400 text-center mx-auto">
-                    <theady>
+            <div class="overflow-x-auto" id="primary-section">
+                <table   class=" display w-[100%] rounded-sm border-collapse border border-slate-400 text-center mx-auto">
+                    <thead>
                         <tr class="border border-slate-300">
-                            <td colspan="5" class="px-2 py-2 border border-slate-300">Total Registered</td>
-                            <td colspan="4" class="px-2 py-2 border border-slate-300">Total Attended</td>
+                            <th colspan="5" class="px-2 py-2 border border-slate-300">Total Registered</th>
+                            <th colspan="4" class="px-2 py-2 border border-slate-300">Total Attended</th>
                         </tr>
                         <tr class="border border-slate-300">
-                            <td class="px-2 py-2 border border-slate-300">No</td>
-                            <td class="px-2 py-2 border border-slate-300">School</td>
-                            <td class="px-2 py-2 border border-slate-300">Total</td>
-                            <td class="px-2 py-2 border border-slate-300">Male</td>
-                            <td class="px-2 py-2 border border-slate-300">Female</td>
-                            <td class="px-2 py-2 border border-slate-300">Total</td>
-                            <td class="px-2 py-2 border border-slate-300">Female</td>
-                            <td class="px-2 py-2 border border-slate-300">Male</td>
-                            <td class="px-2 py-2 border border-slate-300">%</td>
+                            <th class="px-2 py-2 border border-slate-300">No</th>
+                            <th class="px-2 py-2 border border-slate-300">class</th>
+                            <th class="px-2 py-2 border border-slate-300">Total</th>
+                            <th class="px-2 py-2 border border-slate-300">Male</th>
+                            <th class="px-2 py-2 border border-slate-300">Female</th>
+                            <th class="px-2 py-2 border border-slate-300">Total</th>
+                            <th class="px-2 py-2 border border-slate-300">Female</th>
+                            <th class="px-2 py-2 border border-slate-300">Male</tdh>
+                            <th class="px-2 py-2 border border-slate-300">%</th>
                         </tr>
-                    </theady>
+                    </thead>
 
                     <tbody class="" id="primary-section-table">
-                     <tr><td colspan="9">primary report section<td></tr>
                     </tbody>
                 </table>
             </div>
@@ -99,28 +106,27 @@
             <h3 class="py-2  my-4 w-full  font-extralight text-[20px]">
                 {{ __("Student attendance Detail in Secondary") }}
             </h3>
-            <div class="" id="secondary-section">
-                <table class="w-[92%] rounded-sm border-collapse border border-slate-400 text-center mx-auto">
-                    <theady>
+            <div class="overflow-x-auto" id="secondary-section">
+                <table class=" display w-[92%] rounded-sm border-collapse border border-slate-400 text-center mx-auto" id="example2">
+                    <thead>
                         <tr class="border border-slate-300">
-                            <td colspan="5" class="px-2 py-2 border border-slate-300">Total Registered</td>
-                            <td colspan="4" class="px-2 py-2 border border-slate-300">Total Attended</td>
+                            <th colspan="5" class="px-2 py-2 border border-slate-300">Total Registered</th>
+                            <th colspan="4" class="px-2 py-2 border border-slate-300">Total Attended</th>
                         </tr>
                         <tr class="border border-slate-300">
-                            <td class="px-2 py-2 border border-slate-300">No</td>
-                            <td class="px-2 py-2 border border-slate-300">School</td>
-                            <td class="px-2 py-2 border border-slate-300">Total</td>
-                            <td class="px-2 py-2 border border-slate-300">Male</td>
-                            <td class="px-2 py-2 border border-slate-300">Female</td>
-                            <td class="px-2 py-2 border border-slate-300">Total</td>
-                            <td class="px-2 py-2 border border-slate-300">Female</td>
-                            <td class="px-2 py-2 border border-slate-300">Male</td>
-                            <td class="px-2 py-2 border border-slate-300">%</td>
+                            <th class="px-2 py-2 border border-slate-300">No</th>
+                            <th class="px-2 py-2 border border-slate-300">class</th>
+                            <th class="px-2 py-2 border border-slate-300">Total</th>
+                            <th class="px-2 py-2 border border-slate-300">Male</th>
+                            <th class="px-2 py-2 border border-slate-300">Female</th>
+                            <th class="px-2 py-2 border border-slate-300">Total</th>
+                            <th class="px-2 py-2 border border-slate-300">Female</th>
+                            <th class="px-2 py-2 border border-slate-300">Male</th>
+                            <th class="px-2 py-2 border border-slate-300">%</th>
                         </tr>
-                    </theady>
+                    </thead>
 
                     <tbody class="" id="secondary-section-table">
-                     <tr><td colspan="9">primary report section<td></tr>
                     </tbody>
                 </table>
             </div>
@@ -130,27 +136,26 @@
             <h3 class="py-2  my-4 w-full  font-extralight text-[20px]">
                 {{ __("Student attendance Detail in TVET ") }}
             </h3>
-            <div class="" id="tvet-section">
-                <table class="w-[92%] rounded-sm border-collapse border border-slate-400 text-center mx-auto">
-                    <theady>
+            <div class="overflow-x-auto" id="tvet-section">
+                <table id="example3" class=" display w-[92%] rounded-sm border-collapse border border-slate-400 text-center mx-auto">
+                    <thead>
                         <tr class="border border-slate-300">
-                            <td colspan="5" class="px-2 py-2 border border-slate-300">Total Registered</td>
-                            <td colspan="4" class="px-2 py-2 border border-slate-300">Total Attended</td>
+                            <th colspan="5" class="px-2 py-2 border border-slate-300">Total Registered</th>
+                            <th colspan="4" class="px-2 py-2 border border-slate-300">Total Attended</th>
                         </tr>
                         <tr class="border border-slate-300">
-                            <td class="px-2 py-2 border border-slate-300">No</td>
-                            <td class="px-2 py-2 border border-slate-300">School</td>
-                            <td class="px-2 py-2 border border-slate-300">Total</td>
-                            <td class="px-2 py-2 border border-slate-300">Male</td>
-                            <td class="px-2 py-2 border border-slate-300">Female</td>
-                            <td class="px-2 py-2 border border-slate-300">Total</td>
-                            <td class="px-2 py-2 border border-slate-300">Female</td>
-                            <td class="px-2 py-2 border border-slate-300">Male</td>
-                            <td class="px-2 py-2 border border-slate-300">%</td>
+                            <th class="px-2 py-2 border border-slate-300">No</th>
+                            <th class="px-2 py-2 border border-slate-300">class</th>
+                            <th class="px-2 py-2 border border-slate-300">Total</th>
+                            <th class="px-2 py-2 border border-slate-300">Male</th>
+                            <th class="px-2 py-2 border border-slate-300">Female</th>
+                            <th class="px-2 py-2 border border-slate-300">Total</th>
+                            <th class="px-2 py-2 border border-slate-300">Female</th>
+                            <th class="px-2 py-2 border border-slate-300">Male</th>
+                            <th class="px-2 py-2 border border-slate-300">%</th>
                         </tr>
-                    </theady>
+                    </thead>
                     <tbody class="" id="tvet-section-table">
-                          <tr><td colspan="9">primary report section<td></tr>
                     </tbody>
                 </table>
             </div>
@@ -169,7 +174,16 @@
 
 
 <script>
+
+function getIdFromCurrentUrl() {
+    const pathname = window.location.pathname;
+    const parts = pathname.split('/');
+    return parts[parts.length - 1];
+}
+
+const sectorCode = getIdFromCurrentUrl();
 $(document).ready(function() {
+   
     const token = localStorage.getItem('auth_token');
     getStudentReportData()
 
@@ -183,6 +197,8 @@ $(document).ready(function() {
     })
 
 
+
+
 function todayDate(){
     const today = new Date();
     const year = today.getFullYear();
@@ -191,6 +207,7 @@ function todayDate(){
     const formattedDate = `${year}-${month}-${day}`;
     return formattedDate
 }
+
 
 
     // Function to remove all rows within the tbody
@@ -202,6 +219,7 @@ function removeAllRows() {
 
         while (nuseryReport.firstChild) {
             nuseryReport.removeChild(nuseryReport.firstChild);
+           
         }
 
         while (primaryReport.firstChild) {
@@ -209,6 +227,7 @@ function removeAllRows() {
         }
         while (secondaryReport.firstChild) {
             secondaryReport.removeChild(secondaryReport.firstChild);
+
         }
         // while (tvetReport.firstChild) {
         //     tvetReport.removeChild(tvetReport.firstChild);
@@ -217,7 +236,7 @@ function removeAllRows() {
 
 
     function getStudentReportData() {
-
+        destroy()
        removeAllRows()
         const nuseryReport = document.getElementById("nusery-section-table")
         const primaryReport = document.getElementById("primary-section-table")
@@ -225,27 +244,29 @@ function removeAllRows() {
         const tvetReport = document.getElementById("tvet-section-table")
         // simce it a daily report we check a report for single day and that why from date is the same as to date because I don't want to change backend logic
        // let  fromDate=document.getElementById("fromDate").value;
-        let  fromDate=document.getElementById("toDate").value;
+        let  fromDate=document.getElementById("fromDate").value;
         let  toDate=document.getElementById("toDate").value;
 
-
+         const studentAttendanceBySector = `/api/DEO_StudentAttendance`
 
         let formData={}
         if(fromDate!=='' && toDate!==''){
                 formData={
                     fromDate,
-                    toDate
+                    toDate,
+                    sectorCode
                 }
             }else{
                 formData={
                 fromDate:todayDate(),
-                toDate:todayDate()
+                toDate:todayDate(),
+                sectorCode
             }
         }
-        document.getElementById("reportHeader").innerText="School attendance report statistic on  "+formData.toDate
+        document.getElementById("reportHeader").innerText="School attendance report statistic from "+formData.fromDate +" to "+formData.toDate
         $.ajax({
             type: 'GET',
-            url: '{!! route('DEO_DistrictAttendance') !!}',
+            url: studentAttendanceBySector,
             headers: {
                 'Authorization': 'Bearer ' + token
             },
@@ -274,7 +295,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("nusery-section").innerHTML =
+                            document.getElementById("nusery-section-table").innerHTML =
                                 `<tr><td colspan="9">Attendance is not yet done</td></tr>`
                         } else {
                             attendance.forEach(element => {
@@ -284,7 +305,7 @@ function removeAllRows() {
                                 totalRegisteredMale += Number(element.totalMale)
                                 totalRegisteredFemale += Number(element.totalFemale)
                                 totalAttended += Number(element.totalPresent)
-                                totalAttendedMale += Number(element
+                                 totalAttendedMale += Number(element
                                     .totalPresentMale)
                                 totalAttendedFemale += Number(element
                                     .totalPresentMale)
@@ -294,7 +315,7 @@ function removeAllRows() {
                                     const table1 = `
                             <tr>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${a}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${element.SectorName}</td>
+                                 <td class="px-2 py-2 border border-b-2 border-slate-300 "><a class="cursor-pointer text-red-600" href='/StudentAttendanceReportByDate?date=${element.attendedDay}'>${element.attendedDay}</a></td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalRegistered}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalFemale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalMale}</td>
@@ -308,15 +329,15 @@ function removeAllRows() {
                                         table1)
                                 } else {
                                     const table1 = `
-                            <tr class="bg-red-100">
+                            <tr style="background:#F9CB75">
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${a}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${element.SectorName}</td>
+                                 <td class="px-2 py-2 border border-b-2 border-slate-300 "><a class="cursor-pointer text-red-600" href='/StudentAttendanceReportByDate?date=${element.attendedDay}'>${element.attendedDay}</a></td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalRegistered}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalFemale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalMale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalPresent}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalPresentFemale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttendedMale}</td>
+                                <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalPresentMale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${(element.totalPresent*100/element.totalRegistered).toFixed(2)}</td>
                             </tr>
                             `
@@ -324,27 +345,13 @@ function removeAllRows() {
                                         table1)
                                 }
                             })
-                            const table1 = `
-                            <tr class="bg-green-200">
-                                 <td class="px-2 py-2 border border-b-2 border-slate-300" colspan='2'>General total</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalRegistered}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalRegisteredFemale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalRegisteredMale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttended}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttendedFemale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttendedMale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${(totalAttended*100/totalRegistered).toFixed(2)}</td>
-                            </tr>
-                            `
-                            nuseryReport.insertAdjacentHTML("beforeend", table1)
-
 
                         }
+                       // dataTable()
                     }
                     // primary section ---------------------------------------------------------
                     if (response.levels == 'Primary') {
                         const attendance = response.studentsAttendance
-
                         let a = 0;
                         let totalRegistered = 0
                         let totalRegisteredMale = 0
@@ -355,7 +362,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("primary-section").innerHTML =
+                            document.getElementById("primary-section-table").innerHTML =
                                 `<tr><td colspan="9">Attendance is not yet done</td></tr>`
                         } else {
                             attendance.forEach(element => {
@@ -375,7 +382,7 @@ function removeAllRows() {
                                     const table1 = `
                             <tr>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${a}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${element.SectorName}</td>
+                                <td class="px-2 py-2 border border-b-2 border-slate-300 "><a class="cursor-pointer text-red-600" href='/StudentAttendanceReportByDate?date=${element.attendedDay}'>${element.attendedDay}</a></td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalRegistered}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalFemale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalMale}</td>
@@ -389,15 +396,15 @@ function removeAllRows() {
                                         table1)
                                 } else {
                                     const table1 = `
-                            <tr class="bg-red-100">
+                            <tr style="background:#F9CB75">
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${a}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${element.SectorName}</td>
+                                 <td class="px-2 py-2 border border-b-2 border-slate-300 "><a class="cursor-pointer text-red-600" href='/StudentAttendanceReportByDate?date=${element.attendedDay}'>${element.attendedDay}</a></td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalRegistered}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalFemale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalMale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalPresent}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalPresentFemale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttendedMale}</td>
+                                <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalPresentMale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${(element.totalPresent*100/element.totalRegistered).toFixed(2)}</td>
                             </tr>
                             `
@@ -405,22 +412,10 @@ function removeAllRows() {
                                         table1)
                                 }
                             })
-                            const table1 = `
-                            <tr class="bg-green-200">
-                                 <td class="px-2 py-2 border border-b-2 border-slate-300" colspan='2'>General total</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalRegistered}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalRegisteredFemale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalRegisteredMale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttended}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttendedFemale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttendedMale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${(totalAttended*100/totalRegistered).toFixed(2)}</td>
-                            </tr>
-                            `
-                            primaryReport.insertAdjacentHTML("beforeend", table1)
-
-
+                           
+                    
                         }
+                        //dataTable1()
                     }
                     // secondary section ---------------------------------------------------------
 
@@ -437,7 +432,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("secondary-section").innerHTML =
+                            document.getElementById("secondary-section-table").innerHTML =
                                 `<tr><td colspan="9">Attendance is not yet done</td></tr>`
                         } else {
                             attendance.forEach(element => {
@@ -457,7 +452,7 @@ function removeAllRows() {
                                     const table1 = `
                             <tr>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${a}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${element.SectorName}</td>
+                                 <td class="px-2 py-2 border border-b-2 border-slate-300 "><a class="cursor-pointer text-red-600" href='/StudentAttendanceReportByDate?date=${element.attendedDay}'>${element.attendedDay}</a></td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalRegistered}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalFemale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalMale}</td>
@@ -471,15 +466,15 @@ function removeAllRows() {
                                         table1)
                                 } else {
                                     const table1 = `
-                            <tr class="bg-red-100">
+                            <tr style="background:#F9CB75">
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${a}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${element.SectorName}</td>
+                                 <td class="px-2 py-2 border border-b-2 border-slate-300 "><a class="cursor-pointer text-red-600" href='/StudentAttendanceReportByDate?date=${element.attendedDay}'>${element.attendedDay}</a></td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalRegistered}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalFemale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalMale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalPresent}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalPresentFemale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttendedMale}</td>
+                                <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalPresentMale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${(element.totalPresent*100/element.totalRegistered).toFixed(2)}</td>
                             </tr>
                             `
@@ -487,22 +482,10 @@ function removeAllRows() {
                                         table1)
                                 }
                             })
-                            const table1 = `
-                            <tr class="bg-green-200">
-                                 <td class="px-2 py-2 border border-b-2 border-slate-300" colspan='2'>General total</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalRegistered}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalRegisteredFemale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalRegisteredMale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttended}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttendedFemale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttendedMale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${(totalAttended*100/totalRegistered).toFixed(2)}</td>
-                            </tr>
-                            `
-                            secondaryReport.insertAdjacentHTML("beforeend", table1)
-
+                           
 
                         }
+                       // dataTable2()
                     }
                     // TVET section ---------------------------------------------------------
                     if (response.levels == 'TVET') {
@@ -518,7 +501,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("secondary-section").innerHTML =
+                            document.getElementById("secondary-section-table").innerHTML =
                                 `<tr><td colspan="9">Attendance is not yet done</td></tr>`
                         } else {
                             attendance.forEach(element => {
@@ -538,7 +521,7 @@ function removeAllRows() {
                                     const table1 = `
                             <tr>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${a}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${element.SectorName}</td>
+                                 <td class="px-2 py-2 border border-b-2 border-slate-300 "><a class="cursor-pointer text-red-600" href='/StudentAttendanceReportByDate?date=${element.attendedDay}'>${element.attendedDay}</a></td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalRegistered}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalFemale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalMale}</td>
@@ -552,15 +535,15 @@ function removeAllRows() {
                                         table1)
                                 } else {
                                     const table1 = `
-                            <tr class="bg-red-100">
+                            <tr style="background:#F9CB75">
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${a}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${element.SectorName}</td>
+                                 <td class="px-2 py-2 border border-b-2 border-slate-300 "><a class="cursor-pointer text-red-600" href='/StudentAttendanceReportByDate?date=${element.attendedDay}'>${element.attendedDay}</a></td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalRegistered}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalFemale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalMale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalPresent}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalPresentFemale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttendedMale}</td>
+                                <td class="px-2 py-2 border border-b-2 border-slate-300">${element.totalPresentMale}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${(element.totalPresent*100/element.totalRegistered).toFixed(2)}</td>
                             </tr>
                             `
@@ -568,24 +551,17 @@ function removeAllRows() {
                                         table1)
                                 }
                             })
-                            const table1 = `
-                            <tr class="bg-green-200">
-                                 <td class="px-2 py-2 border border-b-2 border-slate-300" colspan='2'>General total</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalRegistered}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalRegisteredFemale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalRegisteredMale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttended}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttendedFemale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${totalAttendedMale}</td>
-                                <td class="px-2 py-2 border border-b-2 border-slate-300">${(totalAttended*100/totalRegistered).toFixed(2)}</td>
-                            </tr>
-                            `
-                            tvetReport.insertAdjacentHTML("beforeend", table1)
+                           
 
 
                         }
                     }
+                    //dataTable3()
                 })
+                dataTable()
+                // dataTable1()
+                // dataTable2()
+                // dataTable3()
             },
 
             error: function(xhr, status, error) {
@@ -596,30 +572,23 @@ function removeAllRows() {
     }
 
 
-
-    function saveData() {
-        // Serialize the form data
-        const formData = formValue();
-        // Send an AJAX request
-        $.ajax({
-            type: 'POST',
-            url: '{!! route('addStudentsReport') !!}',
-            headers: {
-                'Authorization': 'Bearer ' + token
-
-            },
-            data: formData,
-            dataType: 'json',
-            success: function(response) {
-                window.location.reload()
-                console.log("------------------------------------", response);
-            },
-            error: function(xhr, status, error) {
-                // Handle errors if needed
-                console.error(error);
-            }
-        });
-    }
 })
+
+
+function dataTable() {
+        return new DataTable('.display', {
+             "pagingType": "full_numbers"
+           // destroy: true,
+        });
+
+}
+
+function destroy(){
+    if($.fn.DataTable.isDataTable('.display')) {
+    $('.display').DataTable().destroy();
+}
+$('.display tbody').empty();
+}
+
 </script>
 @endsection

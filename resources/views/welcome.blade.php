@@ -121,6 +121,7 @@
                 localStorage.setItem('auth_token', data.token);
                 localStorage.setItem('auth_user', JSON.stringify(data.user));
                 localStorage.setItem('auth_post', JSON.stringify(data.post));
+
                 const user=data.user
                 
                 if(user.position==="Teacher"){

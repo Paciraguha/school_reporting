@@ -269,7 +269,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("nusery-section").innerHTML =
+                            document.getElementById("nusery-section-table").innerHTML =
                                 `<h3>Attendance is not yet done</h3>`
                         } else {
                             attendance.forEach(element => {
@@ -350,7 +350,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("primary-section").innerHTML =
+                            document.getElementById("primary-section-table").innerHTML =
                                 `<h3>Attendance is not yet done</h3>`
                         } else {
                             attendance.forEach(element => {
@@ -432,7 +432,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("secondary-section").innerHTML =
+                            document.getElementById("secondary-section-table").innerHTML =
                                 `<h3>Attendance is not yet done</h3>`
                         } else {
                             attendance.forEach(element => {
@@ -513,7 +513,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("secondary-section").innerHTML =
+                            document.getElementById("secondary-section-table").innerHTML =
                                 `<h3>Attendance is not yet done</h3>`
                         } else {
                             attendance.forEach(element => {

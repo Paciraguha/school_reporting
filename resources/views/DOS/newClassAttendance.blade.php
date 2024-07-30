@@ -224,7 +224,7 @@ async function getAllStudent() {
                         }
                     </td>
                     <td id="report-expected-total-nusery"><button class="btn btn-primary" disabled>Present</button></td>
-                    <td id="report-attended-men-nusery"><button class="btn btn-danger" disabled></button></td>
+                    <td id="report-attended-men-nusery"><button class="btn btn-danger" disabled>Absent</button></td>
                 </tr>
             `;
             schools.insertAdjacentHTML("beforeend", tableRow);

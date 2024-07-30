@@ -55,11 +55,14 @@ class SchoolController extends Controller
                return response()->json($schools);
                  }
             }else if($loggeduser['position']==="SEO"){
-                $sector =Sector::leftJoin('sector_leaders','sector_leaders.SectorId','=','sectors.id')
-                ->leftJoin('users','users.id','=','sector_leaders.userId')
-                ->first();
-                // return response()->json($sector['SectorCode']);
-                $schools = School::where('SectorCode',$sector['SectorCode'])->get();
+                 $user_id=Auth::user()->id;
+                $sector=User::Join('sector_leaders', 'users.id','=','sector_leaders.UserId') 
+                ->Join('sectors','sectors.id' , '=','sector_leaders.SectorId')
+                ->where('users.id','=',$user_id)
+                ->get(['sectors.id','sectors.SectorCode']);
+            
+               // return response()->json($sector['SectorCode']);
+                $schools = School::where('SectorCode',$sector[0]['SectorCode'])->get();
     
                 foreach ($schools as $school) {
                     $combinationIds = $school->SchoolLevels;
@@ -97,15 +100,44 @@ class SchoolController extends Controller
         return response()->json($data);
     }
 
-    public function  getClassLevels(){
+
+
+public function updateSchool(Request $request){
+    $inputData = $request->all();
+    $data = School::find($inputData["SchoolId"]);
+ 
+    if ($data) {
+        $data->update([
+            "SectorCode"=>$inputData["SectorCode"],
+            "SchoolName"=>$inputData["SchoolName"],
+            "SchoolLevels"=>$inputData["schoolLevel"],
+        ]);
+        return response()->json(["data" => $data, "message" => "School class updated successfully"]);
+    } else {
+        return response()->json(["message" => "School class not found"], 404);
+    }
+}
+
+
+public function deleteschoolinfo($id){
+    $school = School::find($id);
+        if ($school) {
+            $school->delete();
+            return response()->json(["message" => "School data is successfully deleted"]);
+        } else {
+            return response()->json(["message" => "School not found"], 404);
+        }
+}
+
+
+public function  getClassLevels(){
         $data=ClassLevel::all();
         return response()->json($data);  
     }
 
 
-    public function addClasses(Request $request){
+public function addClasses(Request $request){
         $inputData=$request->all();
-
         $this->middleware('auth:sanctum');
         $user_id=Auth::user()->id;
         
@@ -148,7 +180,6 @@ class SchoolController extends Controller
     }
 
     public function getAllSchoolClasses(){
-
         $this->middleware('auth:sanctum');
         $user_id=Auth::user()->id;
         //return response()->json($user_id);
@@ -163,14 +194,38 @@ class SchoolController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+
+     public function updateSchoolClass(Request $request) {
+        $inputData = $request->all();
+        $data = SchoolClass::find($inputData["class_id"]);
+     
+        if ($data) {
+            $data->update([
+                "classLevel" => $inputData["ClassSection"],
+                "SchoolClass" => $inputData["SchoolClass"]
+            ]);
+            return response()->json(["data" => $data, "message" => "School class updated successfully"]);
+        } else {
+            return response()->json(["message" => "School class not found"], 404);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
+
+
+    public function AllSchoolLevel($id){
+        $school=School::where('id','=',$id)->first();
+        if (!$school) {
+            return response()->json(['error' => 'School not found'], 404);
+        }
+        
+        $schoolLevels = $school->SchoolLevels;
+        $data1 = ClassLevel::whereIn('id', $schoolLevels)->get();
+
+        return response()->json($data1);
+    }
+
+
+
     public function show(string $id)
     {
         //

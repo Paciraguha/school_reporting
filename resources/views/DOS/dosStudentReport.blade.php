@@ -179,14 +179,21 @@ $(document).ready(function() {
         saveData()
     })
 
-
 function todayDate(){
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so we add 1
-    const day = String(today.getDate()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
-    return formattedDate
+
+const urlParams = new URLSearchParams(window.location.search);
+if(urlParams.get('date')){
+    const date = urlParams.get('date');
+    return date
+}else{
+
+const today = new Date();
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so we add 1
+const day = String(today.getDate()).padStart(2, '0');
+const formattedDate = `${year}-${month}-${day}`;
+return formattedDate
+}
 }
 
 
@@ -268,7 +275,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("nusery-section").innerHTML =
+                            document.getElementById("nusery-section-table").innerHTML =
                                 `<h3>Attendance is not yet done</h3>`
                         } else {
                             attendance.forEach(element => {
@@ -349,7 +356,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("primary-section").innerHTML =
+                            document.getElementById("primary-section-table").innerHTML =
                                 `<h3>Attendance is not yet done</h3>`
                         } else {
                             attendance.forEach(element => {
@@ -431,7 +438,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("secondary-section").innerHTML =
+                            document.getElementById("secondary-section-table").innerHTML =
                                 `<h3>Attendance is not yet done</h3>`
                         } else {
                             attendance.forEach(element => {
@@ -512,7 +519,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("secondary-section").innerHTML =
+                            document.getElementById("secondary-section-table").innerHTML =
                                 `<h3>Attendance is not yet done</h3>`
                         } else {
                             attendance.forEach(element => {

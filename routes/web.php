@@ -45,7 +45,7 @@ Route::get('/schoolStaffList', function () {
 })->name('schoolStaffList');
 
 
-Route::get('/assignClassLevels', function () {
+Route::get('/schoolStaff', function () {
     return view('teachers');
 })->name('assignClassToTeacher');
 
@@ -101,9 +101,17 @@ Route::get('/dosStudents', function () {
     return view('DOs.dosClass');
 })->name('schooldosclass');
 
-Route::get('/dosStudentsReport', function () {
+Route::get('/schoolStudentsReportDetail', function () {
     return view('DOs.dosStudentReport');
 })->name('dosStudentReports');
+
+
+Route::get('/schoolStudentsReport', function () {
+    return view('DOs.schoolStudentReport');
+})->name('schoolStudentReports');
+
+
+
 
 Route::get('/dosStdudentInClass', function () {
     return view('DOs.newClassAttendance');
@@ -117,7 +125,31 @@ Route::get('/viewTeachersDailyAttendance', function () {
     return view('DOS.dailyTeacherAttendanceReport');
 })->name('dailyTeacherAttendanceReport');
 
+Route::get('/TeachersDailyAttendance', function () {
+    return view('DOS.dailyTeacherAttendance');
+})->name('dailyTeacherAttendance');
 
+Route::get('/teacherAttendanceDetail/{id}', function () {
+    return view('headTeacher.teacherAttendanceDetail');
+})->name('teacherAttendanceDetail');
+
+
+Route::get('/SEO-teacherAttendanceDetail/{id}', function () {
+    return view('SEO.teacherAttendanceDetail');
+})->name('teacherAttendanceDetail');
+
+Route::get('/DEO-teacherAttendanceDetail/{id}', function () {
+    return view('DEO.teacherAttendanceDetail');
+})->name('teacherAttendanceDetail');
+
+Route::get('/DEO-studentAttendancedetail/{id}', function () {
+    return view('DEO.DEO-studentAttendancedetail');
+})->name('DEO-studentAttendancedetail');
+
+
+Route::get('/SEO-studentAttendancedetail/{id}', function () {
+    return view('SEO.SEO-studendtAttendanceDetail');
+})->name('SEO-studentAttendancedetail');
 
 
 // SEO routes for web interface
@@ -142,9 +174,15 @@ Route::get('/SEO-SchoolDailyAttendance/{id}', function () {
     return view('SEO.SEO_SchoolDailyAttendance');
 })->name('SchoolDailyAttendance');
 
-Route::get('/SEO-SectorAttendance', function () {
+Route::get('/SectorStudentAttendanceDetail', function () {
     return view('SEO.SEO_SectorAttendance');
 })->name('SEOSectorAttendance');
+
+Route::get('/SectorStudentAttendance', function () {
+    return view('SEO.Sector_StudentAttendanceAll');
+})->name('SEOSectorAttendance');
+
+
 
 Route::get('/SEO-SectorStaff', function () {
     return view('SEO.SEO_ViewSchoolStaff');
@@ -155,7 +193,12 @@ Route::get('/SEO-StaffBySchool/{id}', function () {
 })->name('SEO_StaffBySchool');
 
 
-Route::get('/SEO-TeacherAttendenceReport', function () {
+Route::get('/SEO-TeacherAttendanceByDate', function () {
+    return view('SEO.SEO_TeacherAttendanceReportByDate');
+})->name('SEO_TeacherAttendanceReport');
+
+
+Route::get('/SEO-TeacherAttendanceReport', function () {
     return view('SEO.SEO_TeacherAttendanceReport');
 })->name('SEO_TeacherAttendanceReport');
 // Auth::routes()
@@ -166,9 +209,24 @@ Route::get('/SectorAttendanceReport', function () {
     return view('DEO.DEO_Attendance');
 })->name('DEO_SectorAttendance');
 
+
+Route::get('/StudentAttendanceReportByDate', function () {
+    return view('DEO.DEO_AttendanceDetails');
+})->name('DEO_AttendanceDetails');
+
+
 Route::get('/SectorAttendanceReport/{id}', function () {
     return view('DEO.DEO_SectorAttendance');
 })->name('DEO_AttendanceBySector');
+
+Route::get('/SectorAttendanceReportByDate/{id}', function () {
+    return view('DEO.DEO_SectorAttendanceByDate');
+})->name('DEO_AttendanceBySectorByDate');
+
+
+
+
+
 
 Route::get('/DistrictStudents', function () {
     return view('DEO.districtStudents');
@@ -179,10 +237,36 @@ Route::get('/DistrictTeacherAttendance', function () {
 })->name('DEO_teacherAttendamceReport');
 
 
+Route::get('/school_student-attendance-report/{id}', function () {
+    return view('DEO.DEO_SchoolAttendance');
+})->name('DEO_school_attendance-report');
+
+Route::get('/school_student-attendance-statistic/{id}', function () {
+    return view('DEO.studentBySchool');
+})->name('DEO_school_attendance-statistic');
+
+
+// Route::get('/school_staff-list/{id}', function () {
+//     return view('DEO.DEO_teacherAttendamceReport');
+// })->name('DEO_school_staff-list');
+
+Route::get('/school_staff-attendance-report/{id}', function () {
+    return view('DEO.DEO_SchoolTeacherAttendance');
+})->name('DEO_school_staff-attendance-report');
+
+Route::get('/school_staff-attendance-statistic/{id}', function () {
+    return view('DEO.viewStaffByschool');
+})->name('DEO_school_staff-attendance-statistic');
+
+
+
+
+
 
 
 
 Route::get('/login', function () {
     return view('welcome')->name("login");
 });
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'Telephone' => '0789112425',
             'position'=>'DEO',
             'email' => 'isp@example.com',
+            'Gender'=>"Male"
         ]);
          
         

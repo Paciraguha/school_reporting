@@ -29,10 +29,10 @@
             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          3
+          <span id="sector_value_small"></span>
         </div>
       </div>
-      <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">3</h1>
+      <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50" id="sector_value_big">3</h1>
       <div class="flex flex-row justify-between group-hover:text-gray-200">
         <p>Sectors</p>
         <span>
@@ -61,10 +61,10 @@
             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          11
+          <span id="school_value_small"></span>
         </div>
       </div>
-      <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">11</h1>
+      <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">  <span id="school_value_big"></span></h1>
       <div class="flex flex-row justify-between group-hover:text-gray-200">
         <p>Schools</p>
         <span>
@@ -96,10 +96,10 @@
             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          117
+          <span id="staff_value_small"></span>
         </div>
       </div>
-      <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">117</h1>
+      <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">  <span id="staff_value_big"></span></h1>
       <div class="flex flex-row justify-between group-hover:text-gray-200">
         <p>School staff</p>
         <span>
@@ -125,10 +125,10 @@
         </div>
         <div class="inline-flex text-sm text-gray-600 group-hover:text-gray-200 sm:text-base">
         <img  src="{{asset('assets/images/education.png')}}"  class="w-8 mr-2 text-green-500 group-hover:text-gray-200">
-          1245
+          <span id="total_student_value_small">0</span>
         </div>
       </div>
-      <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">1245
+      <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50"><span id="total_student_value_big">0</span>
       </h1>
       <div class="flex flex-row justify-between group-hover:text-gray-200">
         <p>Total students</p>
@@ -169,10 +169,12 @@
                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
              </svg>
-             3
+             <span id="nussery_student_value_small">0</span>
            </div>
          </div>
-         <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">3</h1>
+         <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">
+         <span id="nussery_student_value_big">0</span>
+         </h1>
          <div class="flex flex-row justify-between group-hover:text-gray-200">
            <p>Nusery Schools</p>
            <span>
@@ -201,10 +203,12 @@
                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
              </svg>
-             11
+             <span id="primary_student_value_small">0</span>
            </div>
          </div>
-         <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">11</h1>
+         <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">
+         <span id="primary_student_value_big">0</span>
+          </h1>
          <div class="flex flex-row justify-between group-hover:text-gray-200">
            <p>Primary Schools</p>
            <span>
@@ -236,10 +240,12 @@
                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
              </svg>
-             117
+             <span id="secondary_student_value_small">0</span>
            </div>
          </div>
-         <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">117</h1>
+         <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">
+         <span id="secondary_student_value_big">0</span>
+         </h1>
          <div class="flex flex-row justify-between group-hover:text-gray-200">
            <p>Secondary Schools</p>
            <span>
@@ -265,10 +271,11 @@
            </div>
            <div class="inline-flex text-sm text-gray-600 group-hover:text-gray-200 sm:text-base">
            <img  src="{{asset('assets/images/education.png')}}"  class="w-8 mr-2 text-green-500 group-hover:text-gray-200">
-             1245
+             <span id="tvet_student_value_small">0</span>
            </div>
          </div>
-         <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">1245
+         <h1 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">
+         <span id="tvet_student_value_big">0</span>
          </h1>
          <div class="flex flex-row justify-between group-hover:text-gray-200">
            <p>TVET Schools</p>
@@ -287,3 +294,54 @@
 </div>
 </div>
 @endsection
+
+<script>
+
+
+function summarystatistic() {
+    const token = localStorage.getItem('auth_token');
+
+
+
+    const saveData = fetch(`{!! route('summarystatistic') !!}`, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+
+            method: 'get',
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:');
+
+            document.getElementById("sector_value_small").innerText=result.summary.totalsector
+            document.getElementById("sector_value_big").innerText=result.summary.totalsector
+
+            document.getElementById("school_value_small").innerText=result.summary.totalschool
+            document.getElementById("school_value_big").innerText=result.summary.totalschool
+
+            document.getElementById("staff_value_small").innerText=result.summary.totalstaff
+            document.getElementById("staff_value_big").innerText=result.summary.totalstaff
+
+            document.getElementById("total_student_value_small").innerText=result.summary.Totalstudent
+            document.getElementById("total_student_value_big").innerText=result.summary.Totalstudent
+        
+            document.getElementById("nussery_student_value_small").innerText=result.details[0].totalRegistered
+            document.getElementById("nussery_student_value_big").innerText=result.details[0].totalRegistered
+
+            document.getElementById("primary_student_value_small").innerText=result.details[1].totalRegistered
+            document.getElementById("primary_student_value_big").innerText=result.details[1].totalRegistered
+
+            document.getElementById("secondary_student_value_small").innerText=result.details[2].totalRegistered
+            document.getElementById("secondary_student_value_big").innerText=result.details[2].totalRegistered
+
+            document.getElementById("tvet_student_value_small").innerText=result.details[3].totalRegistered
+            document.getElementById("tvet_student_value_big").innerText=result.details[3].totalRegistered
+           
+            //window.location.reload()
+        })
+}
+summarystatistic()
+</script>

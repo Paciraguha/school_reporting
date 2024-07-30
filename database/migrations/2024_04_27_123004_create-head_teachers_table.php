@@ -15,6 +15,7 @@ return new class extends Migration
            $table->increments('id');;
             $table->integer('userId')->unsigned();
             $table->integer('SchoolId')->unsigned();
+            $table->integer('teachingLevel')->default(0)->unsigned();
             $table->index('userId');
             $table->foreign('userId')->references('id')->on('users'); 
             $table->foreign('SchoolId')->references('id')->on('schools'); 

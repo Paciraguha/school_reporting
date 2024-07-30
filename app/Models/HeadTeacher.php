@@ -10,7 +10,8 @@ class HeadTeacher extends Model
     use HasFactory;
     protected $fillable=[
         "userId",
-        "SchoolId"
+        "SchoolId",
+        "teachingLevel"
       
     ];
     

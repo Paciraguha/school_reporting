@@ -23,25 +23,34 @@
         <a href="{{route('teacherDailyAttendance')}}"
             class="w-[250px] float-end text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             type="button">
-            Teachers daily attendance list
+            mark new daily attendance
         </a>
-        <div class="inline-block min-w-full  sm:px-6 lg:px-8">
+        <div class="inline-block min-w-full ">
 
             <h3 class="py-2 border-b-2 border-red-900 my-4 w-full text-2xl" id="table-title">
                 {{ __("All teachers of school") }}
             </h3>
             <div class="overflow-hidden mx-auto">
-                <table class="table" >
+                <table class=" display w-full rounded-sm border-collapse border border-slate-400 mx-11" id="dynamic-table"  >
                     <thead>
+                        <tr class="border">
+                        <th rowspan="2" class="border text-center">No</th>
+                        <th class="px-4 py-2 border border-slate-300" colspan="4">Basic information at school</th>
+                        <th class="px-4 py-2 border border-slate-300" colspan="4">Attendance statistic</th>
+                        <th  colspan="2" class="px-4 py-2 border border-slate-300">Actions</th>
+                        </tr>
                         <tr>
-                            <th rowspan="2">No</th>
-                            <th class="px-2 py-2"> Name</th>
-                            <th class="px-2 py-2">email</th>
-                            <th class="px-2 py-2">telephone</th>
-                            <th class="px-2 py-2">School Name</th>
-                            <th class="px-2 py-2">Class</th>
-                            <th class="px-2 py-2">Assign new class</th>
-                            <th class="px-2 py-2">Actions</th>
+                            <th class="px-4 py-2 border border-slate-300"> Name</th>
+                            <th class="px-4 py-2 border border-slate-300">email</th>
+                            <th class="px-4 py-2 border border-slate-300">telephone</th>
+                            <th class="px-2 py-2">Teaching levels</th>
+                            <th class="px-2 py-2">class teacher</th>
+                            <th class="px-4 py-2 border border-slate-300">Total</th>
+                            <th class="px-4 py-2 border border-slate-300">Present</th>
+                            <th class="px-4 py-2 border border-slate-300">Absent</th>
+                            <th class="px-4 py-2 border border-slate-300">%</th>
+                            <th class="px-4 py-2 border border-slate-300">Assign new class</th>
+                            <th class="px-4 py-2 border border-slate-300">Teacher Attendance</th>
                         </tr>
                     </thead>
                    <tbody id="teacher-section-table"></tbody>
@@ -84,23 +93,60 @@ async function testButton() {
     const teachers = await response1.json();
     console.log(teachers)
     let b = 0;
+    
     teachers.forEach((elem) => {
+        const percentage=Number(Math.round(elem.totalPresent*100 / elem.totalRegistered))
         b++
-        const table = `
-            <tr>
-                <td class="teacher-list-${elem.id}" >${b}</td>
-                <td class="teacher-list-${elem.id}">${elem.firstName} ${elem.lastName}</td>
-                <td class="teacher-list-${elem.id}">${elem.email}</td>
-                <td class="teacher-list-${elem.id}">${elem.Telephone}</td>
-                <td class="teacher-list-${elem.id}">${elem.SchoolName}</td>
-                <td class="teacher-list-${elem.id}">${elem.SchoolClass}</td>
-                <td class="teacher-list-${elem.id}"><select class=" btn btn-outline-info" onChange="assignClaasToTeacher(${elem.id})" id="${elem.id}">
+
+        if(percentage < 50){
+
+            const table = `
+            <tr class="bg-red-50 "text-[#e20d0d77]">
+                <td class="px-4 py-2 border border-slate-300" >${b}</td>
+                <td class="px-4 py-2 border border-slate-300">${elem.firstName} ${elem.lastName}</td>
+                <td class="px-4 py-2 border border-slate-300">${elem.email}</td>
+                <td class="px-4 py-2 border border-slate-300">${elem.Telephone}</td>
+                 <td class="px-4 py-2 border border-slate-300">${elem.levels}</td>
+                 <td class="px-4 py-2 border border-slate-300"> ${!elem.SchoolClass?"---":elem.SchoolClass}</td>
+                 <td class="px-4 py-2 border border-slate-300">${elem.totalRegistered}</td>
+                <td class="px-4 py-2 border border-slate-300">${elem.totalPresent}</td>
+                <td class="px-4 py-2 border border-slate-300">${elem.totalAbsent}</td>
+                <td class="px-4 py-2 border border-slate-300">${!percentage? 0 :percentage}</td>
+
+                <td class="px-4 py-2 border border-slate-300"><select class=" btn btn-outline-info" onChange="assignClaasToTeacher(${elem.id})" id="${elem.id}">
                 <option readonly>new class</option>${dropdownList}</select></td>
-                 <td class="teacher-list-${elem.id}">
-                    <a href=""  id="save_${elem.id}" class="btn btn-success">Attendance</a>
+                 <td class="px-4 py-2 border border-slate-300">
+                    <a href="/teacherAttendanceDetail/${elem.id}"  class="btn btn-success">Attendance</a>
                 </td>
             </tr>`
         schoolTeachers.insertAdjacentHTML("beforeend", table);
+
+
+        }else{
+
+        const table = `
+            <tr>
+                <td class="px-4 py-2 border border-slate-300" >${b}</td>
+                <td class="px-4 py-2 border border-slate-300">${elem.firstName} ${elem.lastName}</td>
+                <td class="px-4 py-2 border border-slate-300">${elem.email}</td>
+                <td class="px-4 py-2 border border-slate-300">${elem.Telephone}</td>
+                 <td class="px-4 py-2 border border-slate-300">${elem.levels}</td>
+                 <td class="px-4 py-2 border border-slate-300"> ${!elem.SchoolClass?"---":elem.SchoolClass}</td>
+
+                <td class="px-4 py-2 border border-slate-300">${elem.totalRegistered}</td>
+                <td class="px-4 py-2 border border-slate-300">${elem.totalPresent}</td>
+                <td class="px-4 py-2 border border-slate-300">${elem.totalAbsent}</td>
+                <td class="px-4 py-2 border border-slate-300">${!percentage? 0 :percentage}</td>
+
+                <td class="px-4 py-2 border border-slate-300"><select class=" btn btn-outline-info" onChange="assignClaasToTeacher(${elem.id})" id="${elem.id}">
+                <option readonly>new class</option>${dropdownList}</select></td>
+                 <td class="px-4 py-2 border border-slate-300">
+                    <a href="/teacherAttendanceDetail/${elem.id}"  class="btn btn-success">Attendance</a>
+                </td>
+            </tr>`
+        schoolTeachers.insertAdjacentHTML("beforeend", table);
+
+        }
     })
 
 }

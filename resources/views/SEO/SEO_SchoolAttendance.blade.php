@@ -18,9 +18,9 @@
         justify-content:space-around
     }
 </style>
-            <div class="container"  style="padding-left:20px;padding-right:20px;margin-right:50px;margin:auto">
+            <div class="container"  style="margin-right:50px;margin:auto">
    
-                        <div class="flex w-full">
+                        <div class="overflow-x-auto">
                          <table class="display" id="example" style="width:100%" >
                            <thead>
                             <tr class="border border-slate-700">
@@ -95,14 +95,14 @@ function getAllStudent(){
             data.forEach((response)=>{
             
                 const attendanceResult=Number(Math.round(response.totalPresent*100/response.totalRegistered))
-                const studentAttendanceDetailUrl = `/studentDetail/${response.id}`;
+                const studentAttendanceDetailUrl = `/SEO-studentAttendancedetail/${response.id}`;
             
            i++
            let table1=''
            if(attendanceResult < 50){
            
              table1=`
-            <tr class="bg-red-50 "text-[#e20d0d77]">
+            <tr style="background:#F9CB75" "text-[#e20d0d77]">
                 <td class="px-6 py-2 border border-slate-300">${i}</td>
                 <td class="px-6 py-2 border border-slate-300">${response.SchoolCode}</td>
                 <td class="px-6 py-2 border border-slate-300">${response.SchoolName}</td>

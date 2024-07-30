@@ -272,7 +272,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("nusery-section").innerHTML =
+                            document.getElementById("nusery-section-table").innerHTML =
                                 `<tr><td colspan="9">Attendance is not yet done</td></tr>`
                         } else {
                             attendance.forEach(element => {
@@ -353,7 +353,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("primary-section").innerHTML =
+                            document.getElementById("primary-section-table").innerHTML =
                                 `<tr><td colspan="9">Attendance is not yet done</td></tr>`
                         } else {
                             attendance.forEach(element => {
@@ -404,7 +404,7 @@ function removeAllRows() {
                                 }
                             })
                             const table1 = `
-                            <tr class="bg-green-200">
+                            <tr style="background:#F9CB75">
                                  <td class="px-2 py-2 border border-b-2 border-slate-300" colspan='2'>General total</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${totalRegistered}</td>
                                 <td class="px-2 py-2 border border-b-2 border-slate-300">${totalRegisteredFemale}</td>
@@ -435,7 +435,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("secondary-section").innerHTML =
+                            document.getElementById("secondary-section-table").innerHTML =
                                 `<tr><td colspan="9">Attendance is not yet done</td></tr>`
                         } else {
                             attendance.forEach(element => {
@@ -516,7 +516,7 @@ function removeAllRows() {
                         let totalPercentage = 0
 
                         if (attendance.length < 1) {
-                            document.getElementById("secondary-section").innerHTML =
+                            document.getElementById("secondary-section-table").innerHTML =
                                 `<tr><td colspan="9">Attendance is not yet done</td></tr>`
                         } else {
                             attendance.forEach(element => {

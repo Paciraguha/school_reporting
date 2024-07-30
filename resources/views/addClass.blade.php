@@ -19,7 +19,7 @@
     }
 </style>
 <div class="container"  style="padding-left:20px;padding-right:20px;margin-right:50px;margin:auto">
-
+<!--  create new class ------------------------------------------------------------------- -->
 <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
         <!-- Modal content -->
@@ -27,7 +27,7 @@
             <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Register new School
+                    Register new School class
                 </h3>
                 <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -47,8 +47,13 @@
                                 </select>
                             </div>
                             <div>
+                            <label for="class-level" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Class Name</label>
+                            <input type ="text" id="className" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="" placeholder="S4 MCB A"/>
+                            <small>Example: S5 LKK A , P1 A or S3 E</small>
+                            </div>
+                            <!-- <div>
                                <label for="class-level" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Class Name</label>
-                                <select c id="class-level" class="bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                               <select c id="class-level" class="bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                                     <option>Select Class</option>
                                     <option value="N1">N1</option>
                                     <option value="N2">N2</option>
@@ -86,15 +91,59 @@
                                     <option value="J">J</option>
                                     <option value="L">L</option>
                                 </select>
-                            </div>
+                            </div> -->
                               
-                   <button  type="button" id="addClass-button"  class="w-full text-white bg-black-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register Class</button>
+                   <button  type="button" id="addClass-button"  class="w-full text-white bg-black-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Class</button>
                 </form>
             </div>
         </div>
     </div>
 </div> 
 
+
+<!--  update  class information------------------------------------------------------------------- -->
+<div id="authentication-modal-update" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    update class information
+                </h3>
+                <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal-update">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5">
+                <form class="space-y-4" action="#"> 
+                            <div>
+                            <label for="class-level" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Class id</label>
+                            <input type ="text" id="classId-update" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="" readonly/>
+                            </div>   
+                            <div>
+                               <label for="class-section-update" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Level</label>
+                                <select  id="class-section-update" class="bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                                    <option>Select level</option>
+                                    
+                                </select>
+                            </div>
+                            <div>
+                            <label for="class-level" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Class Name</label>
+                            <input type ="text" id="className-update" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="" placeholder="S4 MCB A"/>
+                            <small>Example: S5 LKK A , P1 A or S3 E</small>
+                        </div> 
+
+                   <button  type="button" id="addClass-button-update"  class="w-full text-white bg-black-700 bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
 
             <div class="flex flex-col w-full md:w-[100%]  border border-amber-300 px-5 py-8 mt-12">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -108,13 +157,12 @@
                         {{ __("Class section in school") }}
                     </h3>
                     <div class="overflow-hidden mx-auto">
-                    <table class="min-w-full text-left text-sm font-light text-surface dark:text-white mx-auto" >
+                    <table class="display min-w-[80%] text-left text-sm font-light text-surface dark:text-white mx-auto" >
                             <thead class="border-b border-neutral-200 font-medium dark:border-white/10">
                             <tr>
                                 <td rowspan="2" class="px-6 py-4">No</td>
                                 <td rowspan="2" class="px-6 py-4">Date of Registration</td>
-                                <td class="px-6 py-4"> School Code</td>
-                                <td class="px-6 py-4">Classes </td>
+                                <td class="px-6 py-4">School Classes </td>
                                 <td class="px-6 py-4" colspan="3">Actions</td>
                             </tr>
                         </thead>
@@ -139,8 +187,9 @@
     $("#addClass-button").click(function(){
         addNewClassToSchool()
     })
-
-  
+ $("#addClass-button-update").click(function(){
+    updateClassInformation()
+})
     function getClassLevelsOfSchool(){
     const school_levels=document.getElementById("class-section")
     $.ajax({
@@ -153,7 +202,6 @@
         dataType: 'json',
         success: function(response) {
             const data=response;
-            console.log(response)
             let i=0;
             data.SchoolLevels.forEach((res)=>{
             console.log(res)
@@ -180,7 +228,6 @@ function getAllClass(){
         url: '{!! route('apiGetSchoolClass') !!}',
         headers: {
             'Authorization': 'Bearer ' + token
-           
              },
         dataType: 'json',
         success: function(response) {
@@ -196,13 +243,12 @@ function getAllClass(){
             const table1=`
             <tr class="border-b border-neutral-200 dark:border-white/10 tr-data">
                 <td class="whitespace-nowrap px-6 py-4">${i}</td>
-                <td class="whitespace-nowrap px-6 py-4">${response.created_at}</td>
-                <td class="whitespace-nowrap px-6 py-4">${response.SchoolCode}</td>
+                <td class="whitespace-nowrap px-6 py-4">${response.created_at.split("T")[0]}</td>
                 <td class="whitespace-nowrap px-6 py-4">${response.SchoolClass}</td>
                 <td class="whitespace-nowrap px-6 py-4 flex justify-evenly">
                  <a  href="${classStudent}" class="bg-blue hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"> Attendance statistic</button>
                  <a  href="${studendentInClass}" class="btn btn-success">Daily Attendance</button>
-                 <a class="btn btn-warning"> Edit</a></td>
+                 <a onClick='updateClass(${JSON.stringify(response)})' href="#" class="btn btn-warning" data-modal-target="authentication-modal-update" data-modal-toggle="authentication-modal-update"> Edit class info</a></td>
             </tr>
             `
 
@@ -225,13 +271,14 @@ function getAllClass(){
 
 
 function formValue(){
-   // alert("testttt")
+
 let class_section=document.getElementById("class-section").value
-let classes_levels=document.getElementById("class-level").value
-let class_part=document.getElementById("class-part").value
+let class_name=document.getElementById("className").value
+// let classes_levels=document.getElementById("class-level").value
+// let class_part=document.getElementById("class-part").value
 
 const data={
-    SchoolClass:classes_levels+" "+class_part,
+    SchoolClass:class_name,
     ClassSection:class_section
    
 }
@@ -263,6 +310,69 @@ function addNewClassToSchool(){
         }
 })
 
+function updateClass(class_info){
+   
+    let classCategory=document.getElementById("class-section-update")
+    document.getElementById("className-update").value=class_info.SchoolClass
+    document.getElementById("classId-update").value=class_info.id
+
+    $.ajax({
+        type: 'GET',
+        url: '{!! route('getClassLevelsOfSchool') !!}',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            "Content-Type":"application/json"
+             },
+        dataType: 'json',
+        success: function(response) {
+            const data=response;
+            data.SchoolLevels.forEach((res)=>{
+           const options=`
+                <Option ${res.id==class_info.classLevel?"selected":""} value="${res.id}">${res.levels}</Option>
+            `
+            classCategory.insertAdjacentHTML("beforeend",options);
+        })
+        },
+
+    })
+}
+
+function formValueUpdate(){
+let class_id=document.getElementById("classId-update").value
+let class_section=document.getElementById("class-section-update").value
+let class_name=document.getElementById("className-update").value
+
+const data={
+    class_id,
+    SchoolClass:class_name,
+    ClassSection:class_section
+   
+}
+console.log(data)
+return data
+}
+
+
+function updateClassInformation(){
+    const formData=formValueUpdate()
+    $.ajax({
+        type: 'POST',
+        url: '{!! route('schoolUpdateClass') !!}',
+        headers: {
+            'Authorization': 'Bearer ' + token
+             },
+        
+         data: formData,
+        dataType: 'json',
+        success: function(response) {
+            const data=response;
+            alert(response.message)
+            window.location.reload()
+          //console.log("---------------------------------",data)
+        },
+
+    })
+}
 
 </script>
 @endsection

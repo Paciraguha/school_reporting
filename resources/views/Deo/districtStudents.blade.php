@@ -89,7 +89,7 @@ function getAllStudent() {
 
                 const attendanceResult = Number(Math.round(response.totalPresent * 100 / response
                     .totalRegistered))
-                const studentAttendanceDetailUrl = `/studentDetail/${response.id}`;
+                const studentAttendanceDetailUrl = `/DEO-studentAttendancedetail/${response.id}`;
 
                 i++
                 let table1 = ''
@@ -175,7 +175,7 @@ function getAllStudentsBySecotor(sectorCode) {
             data.forEach((response) => {
 
                 const attendanceResult = Number(Math.round(response.totalPresent * 100 / response.totalRegistered))
-                const studentAttendanceDetailUrl = `/studentDetail/${response.id}`;
+                const studentAttendanceDetailUrl = `/DEO-studentAttendancedetail/${response.id}`;
 
                 i++
                 let table1 = ''

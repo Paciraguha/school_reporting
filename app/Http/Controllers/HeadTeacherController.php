@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\TeacherClass;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth; 
 
@@ -29,30 +30,66 @@ class HeadTeacherController extends Controller
        
        $data = HeadTeacher::where('userId', $inputData["userId"])->first();
         if($data){
-            $data->update(["SchoolId" => $inputData["schoolId"]]);
+
+            $data->update(["SchoolId" => $inputData["schoolId"],"teachingLevel"=>$inputData["schoolLevel"]]);
         }else{
             $data=HeadTeacher::create([
                 "userId"=> $inputData["userId"],
-                "SchoolId"=> $inputData["schoolId"]
+                "SchoolId"=> $inputData["schoolId"],
+                "teachingLevel"=>$inputData["schoolLevel"],
             ]);
         }
-      
-        return response()->json($data);
+
+        $data = User::where('id', $inputData["userId"])->first();
+        if($data){
+            $validator= Validator::make($inputData, [
+                'firstName' => ['required', 'string', 'max:255'],
+                'lastName' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255'],
+                'telephone' => ['required', 'string', 'max:10'],
+                
+            ]);
+            if($validator->fails()){
+                return response()->json([
+                    'status'=>false,
+                    'message'=>'input validation fails, all field is mandatory',
+                    'error'=>$validator->errors()
+                ],400);
+            }
+    
+            $data->update([
+                'firstName' => $inputData['firstName'],
+                'lastName' => $inputData['lastName'],
+                'email' => $inputData['email'],
+                'Telephone' => $inputData['telephone'],
+                'Gender' => $inputData['gender'],
+                'position' => $inputData['position']
+            ]);
+    
+         
+            return response()->json([
+                    'status'=>true,
+                    'message'=>'user information is successfully updated'
+                ],200); 
+        }
+       
     }
 
     public function listAllHeadTeacher(Request $request){
         $data=$request->all();
         $data1=$data['HeadTeacher'];
-      
+      //  return response()->json($data1);
         // $data=User::leftJoin('head_teachers', 'users.id','=','head_teachers.UserId') 
         // ->leftJoin('schools','head_teachers.SchoolId' , '=','schools.id' )
         // ->get(['users.id','users.created_at','users.firstName','users.lastName','users.email','users.Telephone','schools.SchoolCode','schools.SchoolName']);
         // return response()->json($data);
 
         $data=User::leftJoin('head_teachers', 'users.id','=','head_teachers.UserId') 
-        ->leftJoin('schools','head_teachers.SchoolId' , '=','schools.id' )
+        ->leftJoin('class_levels','head_teachers.teachingLevel' , '=','class_levels.id')
+        ->leftJoin('schools','head_teachers.SchoolId' , '=','schools.id')
+        ->leftJoin('sectors','sectors.SectorCode' , '=','schools.SectorCode')
         ->where('users.position','=',$data1)
-        ->get(['users.id','users.created_at','users.firstName','users.lastName','users.email','users.Telephone','schools.SchoolCode','schools.SchoolName']);
+        ->get(['users.id','users.created_at','users.firstName','users.lastName','users.email','users.Telephone','users.Gender','users.position','class_levels.levels','head_teachers.teachingLevel','schools.id as school_id','schools.SchoolCode','schools.SchoolName','sectors.SectorCode','sectors.SectorName']);
         return response()->json($data);
     }
     
@@ -64,21 +101,49 @@ class HeadTeacherController extends Controller
         ->Join('schools','head_teachers.SchoolId' , '=','schools.id' )
         ->where('users.id','=',$user_id)
         ->get(['schools.SchoolCode']);
-      // return response()->json($user);
+      
         $data=User::leftJoin('head_teachers', 'users.id','=','head_teachers.UserId') 
+        ->Join('class_levels','head_teachers.teachingLevel' , '=','class_levels.id')
         ->leftJoin('schools','head_teachers.SchoolId' , '=','schools.id' )
         ->leftJoin('teacher_classes','teacher_classes.TeacherId' , '=','users.id' )
         ->leftJoin('school_classes','teacher_classes.ClassId' , '=','school_classes.id')
+        ->leftJoin('teachers', 'users.id', '=', 'teachers.teacherId')
         ->where('users.position','=','teacher')
         ->where('schools.SchoolCode','=',$user[0]["SchoolCode"])
-        ->get(['users.id','users.created_at','users.firstName','users.lastName','users.email','users.Telephone','schools.SchoolName','school_classes.SchoolClass']);
+        ->groupBy('users.id',
+            'users.created_at',
+            'users.firstName',
+            'users.lastName',
+            'users.email',
+            'users.Telephone',
+            'schools.SchoolName',
+            'class_levels.levels',
+            'head_teachers.teachingLevel',
+            'school_classes.SchoolClass')
+        ->select(
+            'users.id',
+            'users.created_at',
+            'users.firstName',
+            'users.lastName',
+            'users.email',
+            'users.Telephone',
+            'schools.SchoolName',
+            'school_classes.SchoolClass',
+            'class_levels.levels',
+            'head_teachers.teachingLevel',
+            DB::raw('COUNT(teachers.teacherId) as totalRegistered'),
+            DB::raw('SUM(CASE WHEN teachers.status = "Present" THEN 1 ELSE 0 END) as totalPresent'),
+            DB::raw('SUM(CASE WHEN teachers.status = "Absent" THEN 1 ELSE 0 END) as totalAbsent'),
+        )
+        ->get();
         return response()->json($data);
 
-        $data=HeadTeacher::where("SchoolCode",$user[0]["SchoolCode"] )->where('position','Teacher')->get();
-        return response()->json($data);
 
     }
 
+
+
+    
     public function assignClassToTeacher(Request $request){
         $inputData=$request->all();
 

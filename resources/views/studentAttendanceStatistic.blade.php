@@ -38,7 +38,8 @@
                                 <th class="px-6 py-2 border border-slate-300">Absent</th>
                                 <th class="px-6 py-2 border border-slate-300">%</th>
                                 <th class="px-6 py-2 border border-slate-300">Action</th>
-                            </tr></thead><tbody id="student-section-table" ></tbody>
+                            </tr></thead>
+                            <tbody id="student-section-table" ></tbody>
                          </table>
                     </div>
                 </div>
@@ -47,7 +48,7 @@
         </div>
     </div>
     <!-- submit button ----------------------------------------- -->
-    <table id="dynamic-table" class="display">
+    <!-- <table id="dynamic-table" class="display">
         <thead>
             <tr>
                 <th>ID</th>
@@ -57,7 +58,7 @@
         </thead>
         <tbody>
         </tbody>
-    </table>
+    </table> -->
 
 </div>
 <script>

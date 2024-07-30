@@ -125,6 +125,12 @@
 </html>
 
 <script>
+
+if(!localStorage.getItem('auth_token') && !localStorage.getItem('auth_post')){
+        window.location.href="/"
+}
+
+
 if (localStorage.getItem('auth_token')) {
     const user = JSON.parse(localStorage.getItem('auth_user'))
     const workPost = JSON.parse(localStorage.getItem('auth_post'))

@@ -36,7 +36,7 @@
             <div class="py-1 font-semibold" >
                 <label>Reg No:</label>
                 <span id="student_reg" ></span>
-                      0010101
+                 
              </div>
              <div class="py-1 font-semibold" >
                     <label>Class:</label>
@@ -51,7 +51,6 @@
          {{ __("Student attendance Detail") }}
         </h3>
 
-       
                         <table class="w-full  rounded-sm border-collapse border border-slate-400 mx-11 mb-10"  id="student-section-table">
                             <tr>
                                 <td rowspan="2" class="px-6 py-2">No</td>
@@ -98,10 +97,10 @@ function getAllStudent(){
         success: function(response) {
             document.getElementById("student_name").innerHTML=response[0].FirstName +" "+response[0].LastName;
             document.getElementById("student_gender").innerHTML=response[0].Gender;
-            document.getElementById("student_reg").innerHTML=response[0].SchoolCode;
+            document.getElementById("student_reg").innerHTML=response[0].StudentCode;
             document.getElementById("student_class").innerHTML=response[0].SchoolClass;
             const data=response;
-            console.log("----------------------------------------",response)
+            console.log("----------------------------------------*******",response)
             let i=0;
             data.forEach((response)=>{
            

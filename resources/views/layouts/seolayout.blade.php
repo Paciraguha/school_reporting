@@ -10,8 +10,36 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.bootstrap5.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/staterestore/1.4.1/css/stateRestore.bootstrap5.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/dataTables.foundation.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Include DataTables JS -->
+    
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/staterestore/1.4.1/js/dataTables.stateRestore.js"></script>
+    <script src="https://cdn.datatables.net/staterestore/1.4.1/js/stateRestore.bootstrap5.js"></script>
+    
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+  
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.bootstrap5.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <!-- Fonts -->
+    <!-- <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css" rel="stylesheet">
@@ -27,9 +55,10 @@
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.bootstrap5.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
     
     <!-- Scripts -->
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
@@ -55,8 +84,8 @@
     <div class="p-4 sm:ml-64">
         <div
             class="w-full bg-slate-200 h-[200px] shadow-sm border-b-2 border-blue-300 mb-10  border-l-2 p-6 rounded-lg">
-            <h1 class="pt-2 font-medium text-xl">sector name: <span id="sectorName"><span></h1>
-            <h1 class="pt-2 font-medium text-xl">sector code: <span id="sectorCode"><span></h1>
+            <h1 class="pt-2 font-medium text-xl" id="sectorName"></h1>
+            <h1 class="pt-2 font-medium text-xl" id="sectorCode"></h1>
         </div>
         <div class=" w-full rounded-lg shadow-md p-4">
             @yield('content')
@@ -69,6 +98,11 @@
 
 
 <script>
+   if(!localStorage.getItem('auth_token') && !localStorage.getItem('auth_post')){
+        window.location.href="/"
+}
+
+
 if (localStorage.getItem('auth_token')) {
     const user = JSON.parse(localStorage.getItem('auth_user'))
     const workPost = JSON.parse(localStorage.getItem('auth_post'))
@@ -83,7 +117,7 @@ if (localStorage.getItem('auth_token')) {
     </div>
     <ul class="space-y-2 font-medium mt-5">
         <li>
-        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+        <a href="{{route('home')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
             <svg class="w-5 h-5 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                 <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
                 <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
@@ -172,6 +206,8 @@ if (localStorage.getItem('auth_token')) {
     </ul>
    </div>
 `
+     document.getElementById("sectorCode").innerHTML ='District Code:<span>  01 </span>'
+    document.getElementById("sectorName").innerHTML ='District:<span> Rulindo District </span>'
     }
 
 // head teacher section-----------------------------------------------------------------------------------------------------------------------
@@ -291,8 +327,8 @@ if (localStorage.getItem('auth_token')) {
         </div>
               `
 
-    document.getElementById("sectorCode").innerText = workPost.SectorCode
-    document.getElementById("sectorName").innerText = workPost.SectorName
+    document.getElementById("sectorCode").innerHTML ='Sector Code:<span>'+ workPost.SectorCode+'</span>'
+    document.getElementById("sectorName").innerHTML ='Sector Name:<span>'+ workPost.SectorName+'</span>'
     document.getElementById("username").innerText = user.firstName + " " + user.lastName
     document.getElementById("position").innerText = user.position
         }
